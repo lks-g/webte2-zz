@@ -10,6 +10,7 @@ $lang = array(
     'password_placeholder' => 'Enter password',
     'password' => 'Password',
     'submit' => 'Login',
+    'register-text' => 'Register',
 
      // Teacher home page
     'header' => 'Teacher Home Page',

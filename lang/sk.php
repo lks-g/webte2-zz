@@ -1,8 +1,9 @@
 <?php
 $lang = array(
+    'title' => 'Záverečné zadanie - Domovská stránka učiteľa',
     'title1' => 'Záverečné zadanie - Prihlásenie',
-    'title2' => 'Záverečné zadanie - Domovská stránka učiteľa',
-
+    'title2' => 'Záverečné zadanie - Registrácia',
+    
      // Login page
     'login' => 'Prihlásenie',
     'username' => 'Používateľské meno',
@@ -10,6 +11,7 @@ $lang = array(
     'password_placeholder' => 'Zadajte heslo',
     'password' => 'Heslo',
     'submit' => 'Prihlásiť sa',
+    'register-text' => 'Registrácia',
     
      // Teacher home page
     'header' => 'Domovská stránka učiteľa',
