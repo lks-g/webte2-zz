@@ -16,8 +16,6 @@ if ($_SESSION['lang'] == 'sk') {
     include('lang/en.php');
 }
 
-session_write_close();
-
 ?>
 
 <!DOCTYPE html>
@@ -27,29 +25,25 @@ session_write_close();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title><?php echo $lang['title']; ?></title>
+    <title><?php echo $lang['title1']; ?></title>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
-    <div class="navbar">
-        <a href="#"><?php echo $lang['menu1']; ?></a>
-        <a href="#"><?php echo $lang['menu2']; ?></a>
-        <a href="#"><?php echo $lang['menu3']; ?></a>
+    <div id="login">
+        <h1><?php echo $lang['login']; ?></h1>
+        <form action="php/teacher.php" method="post">
+            <label for="username"><?php echo $lang['username']; ?></label>
+            <input type="text" name="username" id="username" placeholder="<?php echo $lang['username_placeholder']; ?>">
+            <label for="password"><?php echo $lang['password']; ?></label>
+            <input type="password" name="password" id="password" placeholder="<?php echo $lang['password_placeholder']; ?>">
+            <input type="submit" value="<?php echo $lang['submit']; ?>">
+        </form>
         <div class="language">
             <a href="index.php?lang=sk">SK</a>
             <a href="index.php?lang=en">EN</a>
         </div>
     </div>
-
-    <div id="main">
-        <h1><?php echo $lang['header']; ?></h1>
-        <h2><?php echo $lang['welcome']; ?></h2>
-    </div>
-
-    <footer>
-        <p><?php echo $lang['rights']; ?></p>
-    </footer>
 </body>
 
 </html>

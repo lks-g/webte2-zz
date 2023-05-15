@@ -1,0 +1,88 @@
+/**************** COLORS ****************/
+/* #3F76BF - Blue       */
+/* #001128 - Dark Blue  */
+/* #8F8F8F - Grey       */
+/* #FFFFFF - White      */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/***************** TAGS ******************/
+body {
+    font-family: 'Roboto', sans-serif;
+    background: radial-gradient(circle, #3F76BF, #001128);
+    margin: 0;
+    padding: 0;
+}
+
+/****************** IDs ******************/
+#login {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    width: 25%;
+    margin: 0 auto;
+    margin-top: 13%;
+    padding: 40px;
+    text-align: center;
+}
+
+#login h1 {
+    font-size: 24px;
+    margin-bottom: 5%;
+    color: #001128;
+}
+
+#login label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 2%;
+    color: #666666;
+    text-align: left;
+}
+
+#login input[type="text"],
+#login input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 3px solid #cccccc;
+    margin-bottom: 20px;
+    transition: 300ms border-bottom ease-in-out;
+}
+
+#login input[type="text"]:focus,
+#login input[type="password"]:focus {
+    outline: none;
+    border-bottom: 3px solid #3F76BF;
+}
+
+#login input[type="submit"] {
+    background-color: #3F76BF;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 300ms background-color ease-in-out;
+}
+
+#login input[type="submit"]:hover {
+    background-color: #1db392;
+}
+
+/**************** CLASSES ****************/
+
+.language {
+    margin: 0 auto;
+    margin-top: 4%;
+}
+
+.language a {
+    color: #8F8F8F;
+    font-size: 18px;
+}
+
+.language a:hover {
+    color: #001128;
+}

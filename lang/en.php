@@ -1,6 +1,17 @@
 <?php
 $lang = array(
-    'title' => 'Final Assignment - Teacher Home Page',
+    'title1' => 'Final Assignment - Login',
+    'title2' => 'Final Assignment - Teacher Home Page',
+    
+    // Login page
+    'login' => 'Login',
+    'username' => 'Username',
+    'username_placeholder' => 'Enter username',
+    'password_placeholder' => 'Enter password',
+    'password' => 'Password',
+    'submit' => 'Login',
+
+     // Teacher home page
     'header' => 'Teacher Home Page',
     'menu1' => 'Student Grade Overview',
     'menu2' => 'Assignment Submission',
