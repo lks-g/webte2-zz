@@ -1,0 +1,88 @@
+/**************** COLORS ****************/
+/* #3F76BF - Blue       */
+/* #001128 - Dark Blue  */
+/* #8F8F8F - Grey       */
+/* #FFFFFF - White      */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/***************** TAGS ******************/
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #acacac;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #001128;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px;
+}
+
+/****************** IDs ******************/
+#main {
+    margin: 0 auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 80%;
+    height: 38rem;
+    background-color: white;
+    padding: 3rem;
+    border-radius: 10px;
+}
+
+/**************** CLASSES ****************/
+.navbar {
+    background-color: #001128;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    height: 80px;
+    margin: 0;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.navbar a {
+    color: #FFFFFF;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    margin-right: 2rem;
+    border: 2px solid #ffffff00;
+}
+
+.navbar a:first-child {
+    margin-left: 20px;
+}
+
+.navbar a:hover {
+    background-color: #3F76BF;
+    color: #FFFFFF;
+    border: 2px solid #3F76BF;
+    border-radius: 10px;
+}
+
+.navbar a.active {
+    background-color: #3F76BF;
+    color: #FFFFFF;
+}
+
+.language {
+    margin-left: auto;
+    margin-right: 2rem;
+}
+
+.language a {
+    color: #8F8F8F;
+    font-size: 14px;
+}
+
+.language a:hover {
+    color: #FFFFFF;
+}
