@@ -32,7 +32,7 @@ if ($_SESSION['lang'] == 'sk') {
 <body>
     <div class="navbar">
         <a href="#"><?php echo $lang['menu1']; ?></a>
-        <a href="#"><?php echo $lang['menu2']; ?></a>
+        <a href="generator.php"><?php echo $lang['menu2']; ?></a>
         <a href="#"><?php echo $lang['menu3']; ?></a>
         <div class="language">
             <a href="teacher.php?lang=sk">SK</a>

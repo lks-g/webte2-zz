@@ -30,9 +30,10 @@ footer {
     margin-top: 2%;
     margin-bottom: 2%;
     width: 80%;
-    height: 38rem;
+    height: auto;
     background-color: white;
     padding: 3rem;
+    padding-bottom: 15rem;
     border-radius: 10px;
 }
 

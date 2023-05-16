@@ -1,7 +1,9 @@
 <?php
 $lang = array(
-    'title1' => 'Final Assignment - Login',
-    'title2' => 'Final Assignment - Teacher Home Page',
+    // Page Titles
+    'title1' => 'Login',
+    'title2' => 'Teacher Home Page',
+    'title3' => 'Generate math problems',
     
     // Login page
     'login' => 'Login',
@@ -18,5 +20,9 @@ $lang = array(
     'menu2' => 'Assignment Submission',
     'menu3' => 'Student Assessment and Testing',
     'welcome' => 'Welcome to the home page',
-    'rights' => '© 2023 - Teacher Home Page.'
+    'rights' => '© 2023 - Teacher Home Page.',
+
+    // Generator
+    'file-input' => 'Select LaTeX file:',
+    'problem-count' => 'Enter number of problems:',
 );

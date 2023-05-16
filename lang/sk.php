@@ -1,8 +1,10 @@
 <?php
 $lang = array(
-    'title' => 'Záverečné zadanie - Domovská stránka učiteľa',
-    'title1' => 'Záverečné zadanie - Prihlásenie',
-    'title2' => 'Záverečné zadanie - Registrácia',
+    // Page Titles
+    'title' => 'Domovská stránka učiteľa',
+    'title1' => 'Prihlásenie',
+    'title2' => 'Registrácia',
+    'title3' => 'Generovanie príkladov',
     
      // Login page
     'login' => 'Prihlásenie',
@@ -19,5 +21,9 @@ $lang = array(
     'menu2' => 'Zadávanie úloh',
     'menu3' => 'Hodnotenie a skúšanie žiakov',
     'welcome' => 'Vitajte na domovskej stránke',
-    'rights' => '© 2023 - Domovská stránka učiteľa.'
+    'rights' => '© 2023 - Domovská stránka učiteľa.',
+
+    // Generator
+    'file-input' => 'Vyberte LaTeX súbor:',
+    'problem-count' => 'Zadajte počet príkladov:',
 );
