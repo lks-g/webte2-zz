@@ -45,7 +45,6 @@ if ($_SESSION['lang'] == 'sk') {
             <a href="index.php?lang=sk">SK</a>
             <a href="index.php?lang=en">EN</a>
         </div>
-       
     </div>
 </body>
 

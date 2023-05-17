@@ -78,32 +78,46 @@ if ($_SESSION['lang'] == 'sk') {
                         'image' => $image
                     );
 
-                    $stmt = $db->prepare("INSERT INTO assignments (task, solution, image_path) VALUES (:task, :solution, :image_path)");
+                    $stmt = $db->prepare("INSERT INTO assignments (task, solution, image_path) VALUES (:task, :solution, :image_path)
+                    ON DUPLICATE KEY UPDATE solution = VALUES(solution), image_path = VALUES(image_path)");
                     $stmt->bindParam(":task", $parsed_problem['task']);
                     $stmt->bindParam(":solution", $parsed_problem['solution']);
                     $stmt->bindParam(":image_path", $parsed_problem['image']);
                     $stmt->execute();
-
                     $problems[] = $parsed_problem;
                 }
 
                 return $problems;
             }
 
-            function display_problems($parsed_problems) {
+            function display_problems($parsed_problems){
                 foreach ($parsed_problems as $index => $parsed_problem) {
                     $problem_number = $index + 1;
                     echo "<h2>Problem $problem_number</h2>";
-                    echo "<div>" . $parsed_problem['task'] . "</div>";
-                    echo "<div>" . $parsed_problem['solution'] . "</div>";
+            
+                    $task_text = $parsed_problem['task'];
+                    preg_match('/\$\s*(.*?)\s*\$/', $task_text, $equation_match);
+                    $equation = $equation_match[1];
+                    $task_text = strtr($task_text, '', $equation);
+            
+                    echo "<div>" . preg_replace('/\\\\includegraphics\{.*?\}/', '', $task_text) . "</div>";
                     echo "<img src='" . $parsed_problem['image'] . "'/>";
+            
+                    echo "<h2>Solution</h2>";
+                    $solution_text = $parsed_problem['solution'];
+                    preg_match('/\\\\begin\{solution\}(.*?)\\\\end\{solution\}/s', $solution_text, $solution_match);
+                    if (isset($solution_match[1])) {
+                        $solution_equation = $solution_match[1];
+                        $solution_equation_tex = str_replace(array('\dfrac{', '}'), array('\\frac{', '}'), $solution_equation);
+                        echo "<div>\(\displaystyle $solution_equation_tex\)</div>";
+                    }
                 }
             }
-
+                      
             try {
                 $db = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
+
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($_FILES["latex_file"]) && $_FILES["latex_file"]["error"] == 0) {
                         $allowed_ext = array("tex");
@@ -128,6 +142,19 @@ if ($_SESSION['lang'] == 'sk') {
             ?>
         </div>
     </div>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [
+                    ['$', '$'],
+                    ['\\(', '\\)']
+                ]
+            }
+        };
+    </script>
 
 </body>
 

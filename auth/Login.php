@@ -26,7 +26,6 @@ if($_POST["password"] || $_POST["email"]) {
                     $_SESSION['name'] = $data['username'];
                     $_SESSION['id'] = $data['id'];
                     $_SESSION['role'] = "teacher";
-                    //TODO to premen na lokaciu kam ma presmerovat ucitela
                     header("Location:teacher.php");
                     echo "good " . $data['password'] . " " . $_POST['password'];
                 }
