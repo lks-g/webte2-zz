@@ -47,24 +47,21 @@ if ($_SESSION['lang'] == 'sk') {
         <form method="post" enctype="multipart/form-data">
             <label for="latex_file">Select LaTeX file:</label>
             <input type="file" name="latex_file" id="latex_file"><br><br>
-            <label for="num_problems">Number of problems to generate:</label>
-            <input type="number" name="num_problems" id="num_problems"><br><br>
             <input type="submit" value="Generate">
         </form>
 
         <div id="problems">
             <?php
 
-            function parse_problems($db, $latex_contents, $num_problems)
+            function parse_problems($db, $latex_contents, $file_name)
             {
                 preg_match_all("/\\\\begin{(responsetask|task)}(.*?)\\\\end{(responsetask|task)}(.*?)(?=\\\\begin{(responsetask|task)}|$)/s", $latex_contents, $matches);
                 $tasks = $matches[2];
                 $solutions = $matches[4];
 
                 $problems = array();
-                for ($i = 0; $i < min($num_problems, count($tasks)); $i++) {
-                    $problem = $tasks[$i];
-                    $solution = $solutions[$i];
+                foreach ($tasks as $index => $problem) {
+                    $solution = $solutions[$index];
 
                     if (preg_match("/\\\\includegraphics{(.*?)}/s", $problem, $image_matches)) {
                         $image = $image_matches[1];
@@ -75,15 +72,16 @@ if ($_SESSION['lang'] == 'sk') {
                     $parsed_problem = array(
                         'task' => $problem,
                         'solution' => $solution,
-                        'image' => $image
+                        'image' => $image,
+                        'file_name' => $file_name
                     );
 
-                    $stmt = $db->prepare("INSERT INTO assignments (task, solution, image_path) SELECT :task, :solution, :image_path 
-                    WHERE NOT EXISTS (SELECT 1 FROM assignments WHERE task = :task AND solution = :solution AND image_path = :image_path)");
-                    $stmt->bindParam(":task", $parsed_problem['task']);
-                    $stmt->bindParam(":solution", $parsed_problem['solution']);
-                    $stmt->bindParam(":image_path", $parsed_problem['image']);
+                    $stmt = $db->prepare("INSERT INTO assignments (file_name, latex_data) SELECT :file_name, :latex_data 
+                                          WHERE NOT EXISTS (SELECT 1 FROM assignments WHERE file_name = :file_name AND latex_data = :latex_data)");
+                    $stmt->bindParam(":latex_data", $latex_contents);
+                    $stmt->bindParam(":file_name", $file_name);
                     $stmt->execute();
+                    
                     $problems[] = $parsed_problem;
                 }
 
@@ -125,8 +123,8 @@ if ($_SESSION['lang'] == 'sk') {
                         $ext = pathinfo($_FILES["latex_file"]["name"], PATHINFO_EXTENSION);
                         if (in_array($ext, $allowed_ext)) {
                             $latex_contents = file_get_contents($_FILES["latex_file"]["tmp_name"]);
-                            $num_problems = (int)$_POST["num_problems"];
-                            $parsed_problems = parse_problems($db, $latex_contents, $num_problems);
+                            $file_name = $_FILES["latex_file"]["name"];
+                            $parsed_problems = parse_problems($db, $latex_contents, $file_name);
                             display_problems($parsed_problems);
                         } else {
                             echo "Only .tex files are allowed";
