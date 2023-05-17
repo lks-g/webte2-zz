@@ -26,4 +26,10 @@ $lang = array(
     // Generator
     'file-input' => 'Vyberte LaTeX súbor:',
     'problem-count' => 'Zadajte počet príkladov:',
+    'generator' => 'Generovať príklady z LaTeX súboru',
+    'problem' => 'Príklad',
+    'solution' => 'Riešenie',
+    'select' => 'Vybrať súbor',
+    'generate' => 'Generovať',
+    'preview' => 'Tu uvidíte náhľad príkladov a riešení z LaTeX súboru'
 );

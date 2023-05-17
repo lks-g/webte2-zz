@@ -25,4 +25,10 @@ $lang = array(
     // Generator
     'file-input' => 'Select LaTeX file:',
     'problem-count' => 'Enter number of problems:',
+    'generator' => 'Generate problems from LaTeX file',
+    'problem' => 'Problem',
+    'solution' => 'Solution',
+    'select' => 'Select LaTeX file:',
+    'generate' => 'Generate',
+    'preview' => 'Here you will see a preview of problems and solutions from LaTeX file'
 );

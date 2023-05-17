@@ -32,7 +32,7 @@ if ($_SESSION['lang'] == 'sk') {
 <body>
     <div id="login">
         <h1><?php echo $lang['login']; ?></h1>
-        <form action="php/teacher.php" method="post">
+        <form action="teacher/teacher.php" method="post">
             <label for="username"><?php echo $lang['username']; ?></label>
             <input type="text" name="username" id="username" placeholder="<?php echo $lang['username_placeholder']; ?>">
             <label for="password"><?php echo $lang['password']; ?></label>

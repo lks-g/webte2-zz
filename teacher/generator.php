@@ -43,13 +43,16 @@ if ($_SESSION['lang'] == 'sk') {
     </div>
 
     <div id="main">
-        <h1>Generate Problems</h1>
+        <h1><?php echo $lang['generator'] ?></h1>
         <form method="post" enctype="multipart/form-data">
-            <label for="latex_file">Select LaTeX file:</label>
-            <input type="file" name="latex_file" id="latex_file"><br><br>
-            <input type="submit" value="Generate">
+            <label for="latex_file" class="file-upload">
+                <input type="file" name="latex_file" id="latex_file">
+                <?php echo $lang['select'] ?>
+            </label>
+            <input type="submit" value="<?php echo $lang['generate'] ?>" class="submit-button">
         </form>
 
+        <h1><?php echo $lang['preview']; ?></h1>
         <div id="problems">
             <?php
 
@@ -81,28 +84,30 @@ if ($_SESSION['lang'] == 'sk') {
                     $stmt->bindParam(":latex_data", $latex_contents);
                     $stmt->bindParam(":file_name", $file_name);
                     $stmt->execute();
-                    
+
                     $problems[] = $parsed_problem;
                 }
 
                 return $problems;
             }
 
-            function display_problems($parsed_problems)
+            function display_problems($parsed_problems, $lang)
             {
                 foreach ($parsed_problems as $index => $parsed_problem) {
                     $problem_number = $index + 1;
-                    echo "<h2>Problem $problem_number</h2>";
+                    echo "<h2>" . $lang['problem'] . " " . $problem_number . "</h2>";
 
                     $task_text = $parsed_problem['task'];
                     preg_match('/\$\s*(.*?)\s*\$/', $task_text, $equation_match);
                     $equation = isset($equation_match[1]) ? $equation_match[1] : '';
-                    $task_text = strtr($task_text, '', $equation);
+                    $task_text = str_replace('$' . $equation . '$', '\\(' . $equation . '\\)', $task_text);
 
                     echo "<div>" . preg_replace('/\\\\includegraphics\{.*?\}/', '', $task_text) . "</div>";
                     echo "<img src='" . $parsed_problem['image'] . "'/>";
 
-                    echo "<h2>Solution</h2>";
+                    echo "<div class='solution'>";
+                    echo "<h2>" . $lang['solution'] . "</h2>";
+                    echo "</div";
                     $solution_text = $parsed_problem['solution'];
                     preg_match('/\\\\begin\{solution\}(.*?)\\\\end\{solution\}/s', $solution_text, $solution_match);
                     if (isset($solution_match[1])) {
@@ -125,7 +130,7 @@ if ($_SESSION['lang'] == 'sk') {
                             $latex_contents = file_get_contents($_FILES["latex_file"]["tmp_name"]);
                             $file_name = $_FILES["latex_file"]["name"];
                             $parsed_problems = parse_problems($db, $latex_contents, $file_name);
-                            display_problems($parsed_problems);
+                            display_problems($parsed_problems, $lang);
                         } else {
                             echo "Only .tex files are allowed";
                         }
@@ -142,8 +147,9 @@ if ($_SESSION['lang'] == 'sk') {
         </div>
     </div>
 
+    <script src="../script/script.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js"></script>
     <script>
         MathJax = {
             tex: {
@@ -155,6 +161,9 @@ if ($_SESSION['lang'] == 'sk') {
         };
     </script>
 
+    <footer>
+        <p><?php echo $lang['rights']; ?></p>
+    </footer>
 </body>
 
 </html>
