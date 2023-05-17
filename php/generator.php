@@ -2,10 +2,6 @@
 
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require_once('../config.php');
 
 if (isset($_GET['lang'])) {
@@ -59,18 +55,22 @@ if ($_SESSION['lang'] == 'sk') {
         <div id="problems">
             <?php
 
-            function parse_problems($db, $latex_contents, $num_problems) {
-                preg_match_all("/\\\\begin{task}(.*?)\\\\end{task}(.*?)(?=\\\\begin{task}|$)/s", $latex_contents, $matches);
-                $tasks = $matches[1];
-                $solutions = $matches[2];
+            function parse_problems($db, $latex_contents, $num_problems)
+            {
+                preg_match_all("/\\\\begin{(responsetask|task)}(.*?)\\\\end{(responsetask|task)}(.*?)(?=\\\\begin{(responsetask|task)}|$)/s", $latex_contents, $matches);
+                $tasks = $matches[2];
+                $solutions = $matches[4];
 
                 $problems = array();
                 for ($i = 0; $i < min($num_problems, count($tasks)); $i++) {
                     $problem = $tasks[$i];
                     $solution = $solutions[$i];
 
-                    preg_match("/\\\\includegraphics{(.*?)}/s", $problem, $image_matches);
-                    $image = $image_matches[1];
+                    if (preg_match("/\\\\includegraphics{(.*?)}/s", $problem, $image_matches)) {
+                        $image = $image_matches[1];
+                    } else {
+                        $image = "";
+                    }
 
                     $parsed_problem = array(
                         'task' => $problem,
@@ -78,8 +78,8 @@ if ($_SESSION['lang'] == 'sk') {
                         'image' => $image
                     );
 
-                    $stmt = $db->prepare("INSERT INTO assignments (task, solution, image_path) VALUES (:task, :solution, :image_path)
-                    ON DUPLICATE KEY UPDATE solution = VALUES(solution), image_path = VALUES(image_path)");
+                    $stmt = $db->prepare("INSERT INTO assignments (task, solution, image_path) SELECT :task, :solution, :image_path 
+                    WHERE NOT EXISTS (SELECT 1 FROM assignments WHERE task = :task AND solution = :solution AND image_path = :image_path)");
                     $stmt->bindParam(":task", $parsed_problem['task']);
                     $stmt->bindParam(":solution", $parsed_problem['solution']);
                     $stmt->bindParam(":image_path", $parsed_problem['image']);
@@ -90,19 +90,20 @@ if ($_SESSION['lang'] == 'sk') {
                 return $problems;
             }
 
-            function display_problems($parsed_problems){
+            function display_problems($parsed_problems)
+            {
                 foreach ($parsed_problems as $index => $parsed_problem) {
                     $problem_number = $index + 1;
                     echo "<h2>Problem $problem_number</h2>";
-            
+
                     $task_text = $parsed_problem['task'];
                     preg_match('/\$\s*(.*?)\s*\$/', $task_text, $equation_match);
-                    $equation = $equation_match[1];
+                    $equation = isset($equation_match[1]) ? $equation_match[1] : '';
                     $task_text = strtr($task_text, '', $equation);
-            
+
                     echo "<div>" . preg_replace('/\\\\includegraphics\{.*?\}/', '', $task_text) . "</div>";
                     echo "<img src='" . $parsed_problem['image'] . "'/>";
-            
+
                     echo "<h2>Solution</h2>";
                     $solution_text = $parsed_problem['solution'];
                     preg_match('/\\\\begin\{solution\}(.*?)\\\\end\{solution\}/s', $solution_text, $solution_match);
@@ -113,7 +114,7 @@ if ($_SESSION['lang'] == 'sk') {
                     }
                 }
             }
-                      
+
             try {
                 $db = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
