@@ -55,7 +55,7 @@ if ($_SESSION['lang'] == 'sk') {
         <h2>Click "Generate" to generate Assignment</h2>
 
         <form method="post" action="">
-    <input type="submit" name="generate" value="Generate">
+    <input type="submit" name="generate" value="Generate" class="generate-button">
 </form>
 
 <?php

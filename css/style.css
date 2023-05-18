@@ -122,3 +122,18 @@ footer {
 .file-upload:hover, .submit-button:hover {
     background-color: #0069d9;
 }
+
+
+.generate-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #001128;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
