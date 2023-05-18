@@ -35,7 +35,6 @@ function deleteAssignmentSet(setId) {
     }
 }
 
-
 function updateFileList(files) {
     var table = document.querySelector(".data-table table");
     var tbody = table.getElementsByTagName("tbody")[0];
