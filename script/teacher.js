@@ -22,6 +22,20 @@ function deleteFile(file) {
     }
 }
 
+function deleteAssignmentSet(setId) {
+    if (confirm("Are you sure you want to delete this assignment set?")) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                location.reload();
+            }
+        };
+        xhttp.open("GET", "../teacher/delete_assignment_set.php?set_id=" + setId, true);
+        xhttp.send();
+    }
+}
+
+
 function updateFileList(files) {
     var table = document.querySelector(".data-table table");
     var tbody = table.getElementsByTagName("tbody")[0];
