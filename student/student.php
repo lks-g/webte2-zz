@@ -31,8 +31,9 @@ if ($_SESSION['lang'] == 'sk') {
 
 <body>
     <div class="navbar">
-        <a href="#">Generate Assignments</a>
+    <a href="student_assignment.php">Generate Assignments</a>
         <a href="#">Overview of Assignments</a>
+        <a href="student.php">Student Home P/age</a>
     
         <div class="language">
             <a href="teacher.php?lang=sk">SK</a>
