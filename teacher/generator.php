@@ -36,9 +36,11 @@ if ($_SESSION['lang'] == 'sk') {
 
 <body>
     <div class="navbar">
-        <a href="#"><?php echo $lang['menu1']; ?></a>
-        <a href="teacher.php"><?php echo $lang['header']; ?></a>
-        <a href="#"><?php echo $lang['menu3']; ?></a>
+        <div class="navbar-links">
+            <a href="#"><?php echo $lang['menu1']; ?></a>
+            <a href="teacher.php"><?php echo $lang['header']; ?></a>
+            <a href="#"><?php echo $lang['menu3']; ?></a>
+        </div>
         <div class="language">
             <a href="generator.php?lang=sk">SK</a>
             <a href="generator.php?lang=en">EN</a>
@@ -46,7 +48,6 @@ if ($_SESSION['lang'] == 'sk') {
     </div>
 
     <div id="main">
-
         <div class="data-table">
             <?php
             function get_assignment_sets($db, $file_name = null)
@@ -55,23 +56,22 @@ if ($_SESSION['lang'] == 'sk') {
                 if ($file_name) {
                     $query .= " WHERE file_name = :file_name";
                 }
-                
+
                 $stmt = $db->prepare($query);
                 if ($file_name) {
                     $stmt->bindParam(":file_name", $file_name);
                 }
-                
+
                 $stmt->execute();
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
-                
             }
 
-            function display_assignment_sets($assignment_sets)
+            function display_assignment_sets($assignment_sets, $lang)
             {
-                echo "<h1>Assignment Sets</h1>";
+                echo "<h1>" . $lang['sets'] . "</h1>";
                 if (count($assignment_sets) > 0) {
                     echo "<table>";
-                    echo "<tr><th>Name</th><th>Start Date</th><th>End Date</th><th>Points</th></tr>";
+                    echo "<tr><th>" . $lang['asgName'] . "</th><th>" . $lang['asgDateStart'] . "</th><th>" . $lang['asgDateEnd'] . "</th><th>" . $lang['asgPoints'] . "</th><th>" . $lang['fileActions'] . "</th> </tr>";
 
                     foreach ($assignment_sets as $set) {
                         echo "<tr>";
@@ -79,17 +79,15 @@ if ($_SESSION['lang'] == 'sk') {
                         echo "<td>{$set['start_date']}</td>";
                         echo "<td>{$set['end_date']}</td>";
                         echo "<td>{$set['points']}</td>";
-                        echo "<td><button onclick='deleteAssignmentSet('{$set['id']}')'>Delete</button></td>";
+                        echo "<td><button class='deleteBtn' onclick='deleteAssignmentSet('{$set['id']}')'>" . $lang['deleteBtn'] . "</button></td>";
                         echo "</tr>";
                     }
-                    
+
                     echo "</table>";
-                } else {
-                    echo "No assignment sets found.";
                 }
             }
 
-            function create_assignment_set($db, $set_name, $start_date, $end_date, $file_name, $points)
+            function create_assignment_set($db, $set_name, $start_date, $end_date, $file_name, $points, $lang)
             {
                 $stmt = $db->prepare("SELECT COUNT(*) FROM assignments_sets WHERE set_name = :set_name AND start_date = :start_date AND end_date = :end_date");
                 $stmt->bindParam(":set_name", $set_name);
@@ -109,12 +107,10 @@ if ($_SESSION['lang'] == 'sk') {
                     $stmt->execute();
 
                     if ($stmt->rowCount() > 0) {
-                        echo "Assignment set inserted successfully.";
+                        echo $lang['asgInsertSuccess'];
                     } else {
-                        echo "Assignment set with the same details already exists.";
+                        echo $lang['asgInsertError'];
                     }
-                } else {
-                    echo "Assignment set with the same details already exists.";
                 }
             }
 
@@ -125,23 +121,22 @@ if ($_SESSION['lang'] == 'sk') {
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 $assignment_sets = get_assignment_sets($db);
-                display_assignment_sets($assignment_sets);
+                display_assignment_sets($assignment_sets, $lang);
 
                 $stmt = $db->prepare("SELECT file_name, date_created FROM assignments");
                 $stmt->execute();
                 $files = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 if (count($files) > 0) {
-                    echo "<h1>Files in the Database</h1>";
+                    echo "<h1>" . $lang['dbsFileTitle'] . "</h1>";
                     echo "<table>";
-                    echo "<tr><th>File Name</th><th>Upload Date</th><th>Actions</th></tr>";
+                    echo "<tr><th>" . $lang['fileName'] . "</th><th>" . $lang['fileUploadDate'] . "</th><th>" . $lang['fileActions'] . "</th></tr>";
 
                     foreach ($files as $file) {
                         echo "<tr>";
                         echo "<td>{$file['file_name']}</td>";
                         echo "<td>{$file['date_created']}</td>";
-                        echo "<td><button onclick=\"deleteFile('{$file['file_name']}')\">Delete</button></td>";
-                        echo "<td><button>Show</button></td>";
+                        echo "<td><button class='deleteBtn' onclick=\"deleteFile('{$file['file_name']}')\">" . $lang['deleteBtn'] . "</button></td>";
                         echo "</tr>";
                     }
                     echo "</table>";
@@ -152,15 +147,14 @@ if ($_SESSION['lang'] == 'sk') {
                         $end_date = $_POST["end_date"];
                         $file_name = $_POST["file_name"];
                         $points = $_POST["points"];
-                    
-                        create_assignment_set($db, $set_name, $start_date, $end_date, $file_name, $points);
+
+                        create_assignment_set($db, $set_name, $start_date, $end_date, $file_name, $points, $lang);
                     }
-                    
                 } else {
-                    echo "No files found in the database.";
+                    echo $lang['noFilesError'];
                 }
             } catch (PDOException $e) {
-                echo "Connection failed: " . $e->getMessage();
+                echo $lang['connFail'] . " " . $e->getMessage();
             }
 
             $db = null;
@@ -168,25 +162,25 @@ if ($_SESSION['lang'] == 'sk') {
         </div>
 
         <div class="assignment-set-form">
-            <h1>Create Assignment Set</h1>
+            <h1><?php echo $lang['createAsg'] ?></h1>
             <form method="post">
-                <label for="file_name">Select File:</label>
-                <select name="file_name" id="file_name" required>
+                <label for="file_name"><?php echo $lang['selectSet'] ?></label><br>
+                <select name="file_name" id="file_name" required><br>
                     <?php
                     foreach ($files as $file) {
                         echo "<option value='{$file['file_name']}'>{$file['file_name']}</option>";
                     }
                     ?>
-                </select>
-                <label for="set_name">Set Name:</label>
-                <input type="text" name="set_name" id="set_name" required>
-                <label for="start_date">Start Date:</label>
-                <input type="date" name="start_date" id="start_date">
-                <label for="end_date">End Date:</label>
-                <input type="date" name="end_date" id="end_date">
-                <label for="points">Points:</label>
-                <input type="number" name="points" id="points">
-                <input type="submit" name="create_assignment_set" value="Create">
+                </select><br>
+                <label for="set_name"><?php echo $lang['asgName'] ?></label><br>
+                <input type="text" name="set_name" id="set_name" required><br>
+                <label for="start_date"><?php echo $lang['asgDateStart'] ?></label><br>
+                <input type="date" name="start_date" id="start_date"><br>
+                <label for="end_date"><?php echo $lang['asgDateEnd'] ?></label><br>
+                <input type="date" name="end_date" id="end_date"><br>
+                <label for="points"><?php echo $lang['asgPoints'] ?></label><br>
+                <input type="number" name="points" id="points"><br>
+                <input type="submit" name="create_assignment_set" value="<?php echo $lang['create'] ?>"><br>
             </form>
         </div>
 
@@ -198,8 +192,7 @@ if ($_SESSION['lang'] == 'sk') {
             </label>
             <input type="submit" value="<?php echo $lang['generate'] ?>" class="submit-button">
         </form>
-
-        <h1><?php echo $lang['preview']; ?></h1>
+        <br>
         <div id="problems">
             <?php
 
@@ -279,14 +272,14 @@ if ($_SESSION['lang'] == 'sk') {
                             $parsed_problems = parse_problems($db, $latex_contents, $file_name);
                             display_problems($parsed_problems, $lang);
                         } else {
-                            echo "Only .tex files are allowed";
+                            echo $lang['texOnly'];
                         }
                     } else {
-                        echo "Please upload a file";
+                        echo $lang['uploadMsg'];
                     }
                 }
             } catch (PDOException $e) {
-                echo "Connection failed: " . $e->getMessage();
+                echo $lang['connFail'] . " " . $e->getMessage();
             }
 
             $db = null;
