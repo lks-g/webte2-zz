@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 require_once('../config.php');
@@ -43,6 +47,42 @@ if ($_SESSION['lang'] == 'sk') {
     </div>
 
     <div id="main">
+        <div class="data-table">
+            <?php
+            try {
+                $db = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
+                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                $stmt = $db->prepare("SELECT file_name, date_created FROM assignments");
+                $stmt->execute();
+                $files = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                if (count($files) > 0) {
+                    echo "<h1>Files in the Database</h1>";
+                    echo "<table>";
+                    echo "<tr><th>File Name</th><th>Upload Date</th><th>Actions</th></tr>";
+
+                    foreach ($files as $file) {
+                        echo "<tr>";
+                        echo "<td>{$file['file_name']}</td>";
+                        echo "<td>{$file['date_created']}</td>";
+                        echo "<td><button onclick=\"deleteFile('{$file['file_name']}')\">Delete</button></td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                } else {
+                    echo "No files found in the database.";
+                }
+            } catch (PDOException $e) {
+                echo "Connection failed: " . $e->getMessage();
+            }
+
+            $db = null;
+            ?>
+        </div>
+
+        <div id="assignment-picker"></div>
+
         <h1><?php echo $lang['generator'] ?></h1>
         <form method="post" enctype="multipart/form-data">
             <label for="latex_file" class="file-upload">
@@ -80,7 +120,7 @@ if ($_SESSION['lang'] == 'sk') {
                     );
 
                     $stmt = $db->prepare("INSERT INTO assignments (file_name, latex_data) SELECT :file_name, :latex_data 
-                                          WHERE NOT EXISTS (SELECT 1 FROM assignments WHERE file_name = :file_name AND latex_data = :latex_data)");
+                              WHERE NOT EXISTS (SELECT 1 FROM assignments WHERE file_name = :file_name AND latex_data = :latex_data)");
                     $stmt->bindParam(":latex_data", $latex_contents);
                     $stmt->bindParam(":file_name", $file_name);
                     $stmt->execute();
@@ -102,12 +142,11 @@ if ($_SESSION['lang'] == 'sk') {
                     $equation = isset($equation_match[1]) ? $equation_match[1] : '';
                     $task_text = str_replace('$' . $equation . '$', '\\(' . $equation . '\\)', $task_text);
 
-                    echo "<div>" . preg_replace('/\\\\includegraphics\{.*?\}/', '', $task_text) . "</div>";
+                    echo "<div>" . preg_replace('/\\\\includegraphics\{.*?\}/', '', preg_replace('/\$(.*?)\$/s', '\\(\1\\)', $task_text)) . "</div>";
                     echo "<img src='" . $parsed_problem['image'] . "'/>";
 
                     echo "<div class='solution'>";
                     echo "<h2>" . $lang['solution'] . "</h2>";
-                    echo "</div";
                     $solution_text = $parsed_problem['solution'];
                     preg_match('/\\\\begin\{solution\}(.*?)\\\\end\{solution\}/s', $solution_text, $solution_match);
                     if (isset($solution_match[1])) {
@@ -115,6 +154,7 @@ if ($_SESSION['lang'] == 'sk') {
                         $solution_equation_tex = str_replace(array('\dfrac{', '}'), array('\\frac{', '}'), $solution_equation);
                         echo "<div>\(\displaystyle $solution_equation_tex\)</div>";
                     }
+                    echo "</div>";
                 }
             }
 
@@ -146,8 +186,9 @@ if ($_SESSION['lang'] == 'sk') {
             ?>
         </div>
     </div>
+    </div>
 
-    <script src="../script/script.js"></script>
+    <script src="../script/teacher.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js"></script>
     <script>
