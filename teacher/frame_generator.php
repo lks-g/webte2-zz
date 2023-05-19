@@ -32,31 +32,9 @@ if ($_SESSION['lang'] == 'sk') {
     <title><?php echo $lang['title3']; ?></title>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="teacher.php"><?php echo $lang['header']; ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><?php echo $lang['menu1']; ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="grade_overview.php"><?php echo $lang['menu2']; ?></a>
-                </li>
-            </ul>
-            <div class="language">
-                <a class="nav-link" href="generator.php?lang=sk">SK</a>
-                <a class="nav-link" href="generator.php?lang=en">EN</a>
-            </div>
-        </div>
-    </nav>
+<body id="frame-bg">
 
-    <div id="main">
+    <div id="main-frame">
         <div class="data-table">
             <?php
             function get_assignment_sets($db, $file_name = null)
@@ -80,11 +58,10 @@ if ($_SESSION['lang'] == 'sk') {
                 echo "<h1>" . $lang['sets'] . "</h1>";
                 if (count($assignment_sets) > 0) {
                     echo "<table>";
-                    echo "<tr><th>" . $lang['fileName'] . "</th><th>" . $lang['asgName'] . "</th><th>" . $lang['asgDateStart'] . "</th><th>" . $lang['asgDateEnd'] . "</th><th>" . $lang['asgPoints'] . "</th><th>" . $lang['fileActions'] . "</th> </tr>";
+                    echo "<tr><th>" . $lang['asgName'] . "</th><th>" . $lang['asgDateStart'] . "</th><th>" . $lang['asgDateEnd'] . "</th><th>" . $lang['asgPoints'] . "</th><th>" . $lang['fileActions'] . "</th> </tr>";
 
                     foreach ($assignment_sets as $set) {
                         echo "<tr>";
-                        echo "<td>{$set['file_name']}</td>";
                         echo "<td>{$set['set_name']}</td>";
                         echo "<td>{$set['start_date']}</td>";
                         echo "<td>{$set['end_date']}</td>";
@@ -99,14 +76,16 @@ if ($_SESSION['lang'] == 'sk') {
 
             function create_assignment_set($db, $set_name, $start_date, $end_date, $file_name, $points, $lang)
             {
-                $stmt = $db->prepare("SELECT COUNT(*) FROM assignments_sets WHERE set_name = :set_name");
+                $stmt = $db->prepare("SELECT COUNT(*) FROM assignments_sets WHERE set_name = :set_name AND start_date = :start_date AND end_date = :end_date");
                 $stmt->bindParam(":set_name", $set_name);
+                $stmt->bindParam(":start_date", $start_date);
+                $stmt->bindParam(":end_date", $end_date);
                 $stmt->execute();
                 $count = $stmt->fetchColumn();
 
                 if ($count == 0) {
-                    $stmt = $db->prepare("INSERT INTO assignments_sets (set_name, start_date, end_date, file_name, points) 
-                                          VALUES (:set_name, :start_date, :end_date, :file_name, :points)");
+                    $stmt = $db->prepare("INSERT INTO assignments_sets (set_name, start_date, end_date, file_name, points) SELECT :set_name, :start_date, :end_date, :file_name, :points 
+                                          WHERE NOT EXISTS (SELECT 1 FROM assignments_sets WHERE set_name = :set_name AND start_date = :start_date AND end_date = :end_date)");
                     $stmt->bindParam(":set_name", $set_name);
                     $stmt->bindParam(":start_date", $start_date);
                     $stmt->bindParam(":end_date", $end_date);
@@ -119,11 +98,8 @@ if ($_SESSION['lang'] == 'sk') {
                     } else {
                         echo $lang['asgInsertError'];
                     }
-                } else {
-                    echo $lang['asgInsertErrorExists'];
                 }
             }
-
 
             $files = array();
 
@@ -315,11 +291,6 @@ if ($_SESSION['lang'] == 'sk') {
             }
         };
     </script>
-
-    <footer>
-        <p><?php echo $lang['rights']; ?></p>
-    </footer>
-
 </body>
 
 </html>

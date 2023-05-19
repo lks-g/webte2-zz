@@ -4,6 +4,8 @@ $lang = array(
     'title1' => 'Login',
     'title2' => 'Teacher Home Page',
     'title3' => 'Generate math problems',
+    'title4' => 'Grade Overview',
+    'title5' => 'Student Profile',
     
     // Login page
     'login' => 'Login',
@@ -16,9 +18,8 @@ $lang = array(
 
      // Teacher home page
     'header' => 'Teacher Home Page',
-    'menu1' => 'Student Grade Overview',
-    'menu2' => 'Assignment Submission',
-    'menu3' => 'Student Assessment and Testing',
+    'menu1' => 'Assignment Submission',
+    'menu2' => 'Student Grade Overview',
     'welcome' => 'Welcome to the home page',
     'rights' => '© 2023 - Teacher Home Page.',
 
@@ -30,5 +31,34 @@ $lang = array(
     'solution' => 'Solution',
     'select' => 'Select LaTeX file:',
     'generate' => 'Generate',
-    'preview' => 'Here you will see a preview of problems and solutions from LaTeX file'
+    'sets' => 'Assignment sets',
+    'asgName' => 'Assignment name',
+    'asgDateStart' => 'Date from',
+    'asgDateEnd' => 'Date to',
+    'asgPoints' => 'Points',
+    'deleteBtn' => 'Delete',
+    'asgNoSetsError' => 'No assignment sets found.',
+    'asgInsertError' => 'Assignment set with the same details already exists.',
+    'asgInsertSuccess' => 'Assignment set successfully created.',
+    'dbsFileTitle' => 'Files in the Database',
+    'fileName' => 'File name',
+    'fileUploadDate' => 'Upload date',
+    'fileActions' => 'Actions',
+    'showBtn' => 'Show',
+    'noFilesError' => 'No files found in the database.',
+    'connFail' => 'Connection to the database failed ',
+    'createAsg' => 'Create assignment',
+    'selectSet' => 'Select set',
+    'create' => 'Create',
+    'texOnly' => 'Only .tex files are allowed',
+    'uploadMsg' => 'Please upload a file',
+
+    // Overview
+    'firstName' => 'First name',
+    'lastName' => 'Last name',
+    'studentID' => 'Student ID',
+    'setName' => 'Assignment name',
+    'tests' => 'Tests',
+    'points' => 'Points',
+    'exportCSV' => 'Export to CSV',
 );

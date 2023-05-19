@@ -5,6 +5,8 @@ $lang = array(
     'title1' => 'Prihlásenie',
     'title2' => 'Registrácia',
     'title3' => 'Generovanie príkladov',
+    'title4' => 'Prehľad hodnotenia študentov',
+    'title5' => 'Profil študenta',
     
      // Login page
     'login' => 'Prihlásenie',
@@ -17,9 +19,8 @@ $lang = array(
     
      // Teacher home page
     'header' => 'Domovská stránka učiteľa',
-    'menu1' => 'Prehľad hodnotenia študentov',
-    'menu2' => 'Zadávanie úloh',
-    'menu3' => 'Hodnotenie a skúšanie žiakov',
+    'menu1' => 'Zadávanie úloh',
+    'menu2' => 'Prehľad hodnotenia študentov',
     'welcome' => 'Vitajte na domovskej stránke',
     'rights' => '© 2023 - Domovská stránka učiteľa.',
 
@@ -31,5 +32,34 @@ $lang = array(
     'solution' => 'Riešenie',
     'select' => 'Vybrať súbor',
     'generate' => 'Generovať',
-    'preview' => 'Tu uvidíte náhľad príkladov a riešení z LaTeX súboru'
+    'sets' => 'Testy',
+    'asgName' => 'Názov testu',
+    'asgDateStart' => 'Dátum od kedy',
+    'asgDateEnd' => 'Dátum do kedy',
+    'asgPoints' => 'Počet bodov',
+    'deleteBtn' => 'Vymazať',
+    'asgNoSetsError' => 'Nenašli sa žiadne testy.',
+    'asgInsertError' => 'Test s rovnakými detailami už existuje.',
+    'asgInsertSuccess' => 'Test bol úspešne vytvorený.',
+    'dbsFileTitle' => 'Súbory v databáze',
+    'fileName' => 'Názov súboru',
+    'fileUploadDate' => 'Dátum nahratia',
+    'fileActions' => 'Akcie',
+    'showBtn' => 'Zobraziť',
+    'noFilesError' => 'Nenašli sa žiadne súbory v databáze.',
+    'connFail' => 'Pripojenie k databáze zlyhalo',
+    'createAsg' => 'Vytvoriť test',
+    'selectSet' => 'Vybrať sadu',
+    'create' => 'Vytvoriť',
+    'texOnly' => 'Povolené sú iba .tex súbory',
+    'uploadMsg' => 'Prosím nahrajte súbor',
+
+    // Overview
+    'firstName' => 'Meno',
+    'lastName' => 'Priezvisko',
+    'studentID' => 'ID študenta',
+    'setName' => 'Názov testu',
+    'tests' => 'Testy',
+    'points' => 'Body',
+    'exportCSV' => 'Exportovať do CSV',
 );

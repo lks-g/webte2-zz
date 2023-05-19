@@ -40,58 +40,43 @@ footer {
 #problems img {
     display: block;
     margin: 0 auto;
+    max-width: 100%;
+    height: auto;
 }
 
 /**************** CLASSES ****************/
-.navbar {
-    background-color: #001128;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    height: 80px;
-    margin: 0;
-    padding: 0 20px;
-    width: 100%;
+
+.bg-dark {
+    background-color: #001128 !important;
 }
 
-.navbar a {
-    color: #FFFFFF;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    margin-right: 2rem;
-    border: 2px solid #ffffff00;
+.navbar-nav,
+.nav-link {
+    font-size: 1.2rem;
+    padding: 0.5rem;
 }
 
-.navbar a:first-child {
-    margin-left: 20px;
+.nav-link {
+    padding: 0.5rem;
+    color: #FFFFFF !important;
 }
 
-.navbar a:hover {
-    background-color: #3F76BF;
-    color: #FFFFFF;
-    border: 2px solid #3F76BF;
+.nav-link:hover {
+    background-color: #0069d9;
+    padding: 0.5rem;
     border-radius: 10px;
 }
 
-.navbar a.active {
-    background-color: #3F76BF;
-    color: #FFFFFF;
-}
-
-.language {
-    margin-left: auto;
-    margin-right: 2rem;
-}
-
 .language a {
-    color: #8F8F8F;
-    font-size: 14px;
+    color: #FFFFFF;
+    text-decoration: none;
 }
 
 .language a:hover {
-    color: #FFFFFF;
+    background-color: #0069d9;
+    border-radius: 10px;
 }
+
 
 .solution {
     margin: 0 auto;
@@ -104,7 +89,9 @@ footer {
     border: none;
 }
 
-.file-upload, .submit-button {
+.file-upload,
+.submit-button,
+.show.btn {
     display: inline-block;
     padding: 8px 12px;
     font-size: 16px;
@@ -119,10 +106,11 @@ footer {
     display: none;
 }
 
-.file-upload:hover, .submit-button:hover {
+.file-upload:hover,
+.submit-button:hover,
+.show.btn:hover {
     background-color: #0069d9;
 }
-
 
 .generate-button {
     display: inline-block;
