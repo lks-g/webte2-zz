@@ -32,9 +32,11 @@ if ($_SESSION['lang'] == 'sk') {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/student.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    
     <title>Student Generate Assignment Page</title>
 </head>
 
@@ -42,7 +44,7 @@ if ($_SESSION['lang'] == 'sk') {
     <div class="navbar">
         <a href="student_assignment.php">Generate Assignments</a>
         <a href="#">Overview of Assignments</a>
-        <a href="student.php">Student Home P/age</a>
+        <a href="student.php">Student Home Page</a>
 
         <div class="language">
             <a href="teacher.php?lang=sk">SK</a>
@@ -57,6 +59,7 @@ if ($_SESSION['lang'] == 'sk') {
         <form method="post" action="">
     <input type="submit" name="generate" value="Generate" class="generate-button">
 </form>
+
 
 <?php
 if (isset($_POST['generate'])) {
