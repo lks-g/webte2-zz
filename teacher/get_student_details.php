@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
 
 require_once('../config.php');
@@ -27,18 +23,17 @@ if ($_SESSION['lang'] == 'sk') {
     include('../lang/en.php');
 }
 
-
 $firstName = $_GET['firstName'];
 
 try {
     $db = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $query = "SELECT s.first_name, s.last_name, s.student_id, r.set_name, r.points
-              FROM students AS s
-              INNER JOIN results AS r ON s.id = r.student_id
-              WHERE s.first_name = :firstName
-              ORDER BY r.points DESC, s.last_name ASC";
+    $query = "SELECT DISTINCT s.first_name, s.last_name, s.student_id, r.set_name, r.points
+    FROM students AS s
+    INNER JOIN results AS r ON s.id = r.student_id
+    WHERE s.first_name = :firstName
+    ORDER BY r.points DESC, s.last_name ASC";
 
     $stmt = $db->prepare($query);
     $stmt->bindParam(':firstName', $firstName);
@@ -85,42 +80,42 @@ try {
                 </li>
             </ul>
             <div class="language">
-                <a class="nav-link" href="get_student_details.php?lang=sk">SK</a>
-                <a class="nav-link" href="get_student_details.php?lang=en">EN</a>
+                <a class="nav-link" href="get_student_details.php?firstName=<?php echo $firstName; ?>&lang=sk">SK</a>
+                <a class="nav-link" href="get_student_details.php?firstName=<?php echo $firstName; ?>&lang=en">EN</a>
             </div>
         </div>
     </nav>
 
-
     <div id="main">
-        <?php if (!empty($results)) : ?>
-            <?php $firstResult = reset($results); ?>
-            <h1><?php echo "[" . $firstResult['student_id'] . "] - " . $firstResult['first_name'] . " " . $firstResult['last_name']; ?></h1>
+        <div id="profile-table">
+            <?php if (!empty($results)) : ?>
+                <?php $firstResult = reset($results); ?>
+                <h1><?php echo "[" . $firstResult['student_id'] . "] - " . $firstResult['first_name'] . " " . $firstResult['last_name']; ?></h1>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Assignment</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($results as $result) : ?>
+                <table>
+                    <thead>
                         <tr>
-                            <td><?= $result['set_name'] ?></td>
-                            <td><?= $result['points'] ?></td>
+                            <th><?php echo $lang['tests'] ?> </th>
+                            <th><?php echo $lang['points'] ?> </th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($results as $result) : ?>
+                            <tr>
+                                <td><?= $result['set_name'] ?></td>
+                                <td><?= $result['points'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
 
-            <a href="grade_overview.php">Back to Grade Overview</a>
-        <?php else : ?>
-            <p>No results found.</p>
-            <a href="grade_overview.php">Back to Grade Overview</a>
-        <?php endif; ?>
+                <a href="grade_overview.php"><?php echo $lang['goBack'] ?></a>
+            <?php else : ?>
+                <p><?php echo $lang['asgNoSetsError'] ?></p>
+                <a href="grade_overview.php"><?php echo $lang['goBack'] ?></a>
+            <?php endif; ?>
+        </div>
     </div>
-
 
     <footer>
         <p><?php echo $lang['rights']; ?></p>

@@ -62,4 +62,6 @@ $lang = array(
     'tests' => 'Testy',
     'points' => 'Body',
     'exportCSV' => 'Exportovať do CSV',
+    'exportPDF' => 'Exportovať do PDF',
+    'goBack' => 'Späť',
 );

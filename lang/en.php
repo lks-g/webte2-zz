@@ -61,4 +61,6 @@ $lang = array(
     'tests' => 'Tests',
     'points' => 'Points',
     'exportCSV' => 'Export to CSV',
+    'exportPDF' => 'Export to PDF',
+    'goBack' => 'Back to Grade Overview',
 );

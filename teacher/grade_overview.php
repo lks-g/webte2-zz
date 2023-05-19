@@ -3,10 +3,6 @@ session_start();
 
 require_once('../config.php');
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 if (isset($_GET['lang'])) {
     $_SESSION['lang'] = $_GET['lang'];
 }
@@ -41,7 +37,7 @@ if (!is_numeric($sortColumn)) {
     $sortOrder .= ', last_name ASC';
 }
 
-$query = "SELECT s.first_name, s.last_name, s.student_id, COUNT(r.student_id) AS test_count
+$query = "SELECT s.first_name, s.last_name, s.student_id, COUNT(r.student_id) AS test_count, SUM(r.points) AS total_points
           FROM students AS s
           INNER JOIN results AS r ON s.id = r.student_id
           GROUP BY s.first_name, s.last_name, s.student_id
@@ -56,10 +52,8 @@ function generateCSV($data, $filename)
 
     $output = fopen('php://output', 'w');
 
-    // Zápis hlavičky CSV súboru
     fputcsv($output, array('First Name', 'Last Name', 'Student ID', 'Test Count'));
 
-    // Zápis dát do CSV súboru
     foreach ($data as $row) {
         fputcsv($output, $row);
     }
@@ -78,7 +72,6 @@ if (isset($_GET['export'])) {
 
     generateCSV($data, 'student_grades.csv');
 }
-
 
 ?>
 
@@ -150,7 +143,6 @@ if (isset($_GET['export'])) {
         <div>
             <a href="grade_overview.php?export=1" class="btn btn-primary"><?php echo $lang['exportCSV']; ?></a>
         </div>
-
 
     </div>
 
