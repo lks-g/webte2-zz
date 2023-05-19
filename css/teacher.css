@@ -34,7 +34,8 @@ iframe {
 }
 
 /****************** IDs ******************/
-#main, #main-frame {
+#main,
+#main-frame {
     margin: 0 auto;
     margin-top: 2%;
     margin-bottom: 6%;
@@ -283,14 +284,53 @@ iframe {
     }
 }
 
-@media (max-width: 375px) {
-    #main {
-        width: 95%;
+@media (max-width: 432px) {
+
+    h1 {
+        font-size: 15px;
+    }
+
+    #main, #main-frame {
+        width: 100%;
+    }
+
+    .data-table,
+    .assignment-set-form {
+        max-width: 100%;
+        margin: 0 auto;
+        font-size: 12px;
+        padding: 0;
+    }
+
+    .assignment-set-form h1 {
+        text-align: center;
+    }
+
+    .data-table table {
+        font-size: 8px;
+    }
+
+    #file {
+        margin: 0 auto;
+        font-size: 12px;
     }
 
     .assignment-set-form {
+        font-size: 11px;
+        margin: 0 auto;
         margin-top: 8%;
         margin-bottom: 8%;
+    }
+
+    .assignment-set-form label {
+        margin-left: 0%;
+        font-weight: bold;
+        font-size: 11px;
+    }
+
+    .solution {
+        margin-top: 4%;
+        margin-bottom: 4%;
     }
 
     .assignment-set-form input[type="text"],
@@ -298,7 +338,7 @@ iframe {
     .assignment-set-form input[type="number"],
     .assignment-set-form select {
         width: 100%;
-        font-size: 12px;
+        font-size: 10px;
     }
 
     .assignment-set-form input[type="submit"] {
@@ -308,9 +348,14 @@ iframe {
 
     .assignment-set-form,
     .data-table {
-        max-width: 70%;
         margin-top: 5%;
         margin-bottom: 5%;
+        font-size: 11px;
+    }
+
+    .deleteBtn {
+        padding: 3px;
+        font-size: 8px;
     }
 
     .generate-button {
