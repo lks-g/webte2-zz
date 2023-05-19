@@ -35,6 +35,7 @@ if ($_SESSION['lang'] == 'sk') {
     <link rel="stylesheet" href="../css/student.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
     
     
     <title>Student Generate Assignment Page</title>
@@ -61,6 +62,11 @@ if ($_SESSION['lang'] == 'sk') {
 </form>
 
 
+
+
+
+
+
 <?php
 if (isset($_POST['generate'])) {
     $conn = new mysqli($hostname, $username, $password, $dbname);
@@ -77,27 +83,59 @@ if (isset($_POST['generate'])) {
         $row = $result->fetch_assoc();
         $fileName = $row['file_name'];
         $latexData = $row['latex_data'];
-
+        echo "<script>";
+        echo "console.log(" . json_encode($latexData) . ");";
+        echo "</script>";
         // Define possible start tags
         $startTags = array('\begin{task}', '\begin{responsetask}');
+        echo "<script>";
+    echo "console.log(" . json_encode($startTags) . ");";
+    echo "</script>";
+        
+    
 
-        $startPos = false;
-        foreach ($startTags as $tag) {
-            $startPos = strpos($latexData, $tag);
-            if ($startPos !== false) {
-                $startTag = $tag;
-                break;
-            }
-        }
 
+    $startPosArray = array(); // Pole na uchovávanie pozícií výskytov startTagov
+
+foreach ($startTags as $tag) {
+    $startPos = strpos($latexData, $tag);
+    while ($startPos !== false) {
+        $startPosArray[] = $startPos; // Uložiť pozíciu výskytu do poľa
+        $startPos = strpos($latexData, $tag, $startPos + 1); // Hľadaj ďalší výskyt za posledným nájdeným
+    }
+}
+
+// Vybrať náhodnú pozíciu startTagu z poľa $startPosArray
+$randomIndex = array_rand($startPosArray); // Náhodný index v poľa $startPosArray
+$startPos = $startPosArray[$randomIndex]; // Náhodná pozícia startTagu
+echo "<script>";
+echo "console.log(" . json_encode($startPos) . ");";
+echo "</script>";
+// Nájsť príslušný startTag a endTag na základe vybranej pozície
+$startTag = '';
+$endTag = '';
+foreach ($startTags as $tag) {
+    if (strpos($latexData, $tag, $startPos) === $startPos) {
+        $startTag = $tag;
         if ($startTag === '\begin{task}') {
             $endTag = '\end{task}';
         } elseif ($startTag === '\begin{responsetask}') {
             $endTag = '\end{responsetask}';
         }
+        break;
+    }
+}
 
-        $startPos = strpos($latexData, $startTag);
-        $endPos = strpos($latexData, $endTag);
+$endPos = strpos($latexData, $endTag, $startPos); // Hľadaj endTag od v
+
+
+
+
+
+
+
+
+
 
         if ($startPos !== false && $endPos !== false) {
             $taskContent = substr($latexData, $startPos + strlen($startTag), $endPos - ($startPos + strlen($startTag)));
@@ -120,6 +158,12 @@ if (isset($_POST['generate'])) {
             echo "<span>  $taskContent</span>";
             echo "</div>";
             echo "</div>";
+
+            echo '<div id="calculator"></div>';
+            echo '<button id="check" onclick="logUserInput()">Send my Answer</button>';
+            
+
+            
         } else {
             echo "<div class='task'>";
             echo "<h3>Random Task from $fileName:</h3>";
@@ -134,8 +178,37 @@ if (isset($_POST['generate'])) {
     $conn->close();
 }
 ?>
-    </div>
 
+    </div>
+    <script>
+  var elt = document.getElementById('calculator');
+  var options = {
+  graphpaper: false,
+ 
+  
+};
+
+  var calculator = Desmos.GraphingCalculator(elt, options);
+  
+  
+  
+  calculator.observe('change', function() {
+    var expressions = calculator.getState().expressions.list;
+
+    // Iterate over the expressions and log their values
+    expressions.forEach(function(expression) {
+      console.log(expression.latex);
+    });
+  });
+
+  function logUserInput() {
+    var expressions = calculator.getState().expressions.list;
+    var userInput = expressions.map(function(expression) {
+      return expression.latex;
+    });
+    console.log("User input: ", userInput);
+  }
+</script>
     <footer>
         <p>© 2023 - Student Home Page.</p>
     </footer>
