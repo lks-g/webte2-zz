@@ -48,11 +48,9 @@ iframe {
 }
 
 #main-frame {
-    margin-top: 0;
-    margin-bottom: 0;
-    width: 100%;
+    margin-top: 5%;
+    width: 80%;
     background-color: #FFFFFF;
-
 }
 
 #frame-bg {
@@ -123,7 +121,6 @@ iframe {
     background-color: #0069d9;
     border-radius: 10px;
 }
-
 
 .solution {
     margin: 0 auto;

@@ -59,7 +59,7 @@ if ($_SESSION['lang'] == 'sk') {
         <h1><?php echo $lang['header']; ?></h1>
         <h2><?php echo $lang['welcome']; ?></h2>
 
-        <iframe src="https://site98.webte.fei.stuba.sk/zz/teacher/frame_generator.php" width="80%" height="800px"></iframe>
+        <iframe src="https://site98.webte.fei.stuba.sk/zz/teacher/frame_overview.php" width="80%" height="500px"></iframe>
 
     </div>
 
@@ -69,7 +69,6 @@ if ($_SESSION['lang'] == 'sk') {
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 
 </html>

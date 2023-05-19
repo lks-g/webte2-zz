@@ -89,7 +89,7 @@ if ($_SESSION['lang'] == 'sk') {
                         echo "<td>{$set['start_date']}</td>";
                         echo "<td>{$set['end_date']}</td>";
                         echo "<td>{$set['points']}</td>";
-                        echo "<td><button class='deleteBtn' onclick='deleteAssignmentSet('{$set['id']}')'>" . $lang['deleteBtn'] . "</button></td>";
+                        echo "<td><button class='deleteBtn' onclick=\"deleteAssignmentSet('{$set['id']}')\">" . $lang['deleteBtn'] . "</button></td>";
                         echo "</tr>";
                     }
 
@@ -123,7 +123,6 @@ if ($_SESSION['lang'] == 'sk') {
                     echo $lang['asgInsertErrorExists'];
                 }
             }
-
 
             $files = array();
 
@@ -300,7 +299,6 @@ if ($_SESSION['lang'] == 'sk') {
         </div>
     </div>
 
-    <script src="../script/teacher.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -315,6 +313,7 @@ if ($_SESSION['lang'] == 'sk') {
             }
         };
     </script>
+     <script src="../script/teacher.js"></script>
 
     <footer>
         <p><?php echo $lang['rights']; ?></p>
