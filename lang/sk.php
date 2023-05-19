@@ -6,6 +6,7 @@ $lang = array(
     'title2' => 'Registrácia',
     'title3' => 'Generovanie príkladov',
     'title4' => 'Prehľad hodnotenia študentov',
+    'title5' => 'Profil študenta',
     
      // Login page
     'login' => 'Prihlásenie',
@@ -52,4 +53,13 @@ $lang = array(
     'create' => 'Vytvoriť',
     'texOnly' => 'Povolené sú iba .tex súbory',
     'uploadMsg' => 'Prosím nahrajte súbor',
+
+    // Overview
+    'firstName' => 'Meno',
+    'lastName' => 'Priezvisko',
+    'studentID' => 'ID študenta',
+    'setName' => 'Názov testu',
+    'tests' => 'Testy',
+    'points' => 'Body',
+    'exportCSV' => 'Exportovať do CSV',
 );

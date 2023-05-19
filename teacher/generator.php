@@ -80,10 +80,11 @@ if ($_SESSION['lang'] == 'sk') {
                 echo "<h1>" . $lang['sets'] . "</h1>";
                 if (count($assignment_sets) > 0) {
                     echo "<table>";
-                    echo "<tr><th>" . $lang['asgName'] . "</th><th>" . $lang['asgDateStart'] . "</th><th>" . $lang['asgDateEnd'] . "</th><th>" . $lang['asgPoints'] . "</th><th>" . $lang['fileActions'] . "</th> </tr>";
+                    echo "<tr><th>" . $lang['fileName'] . "</th><th>" . $lang['asgName'] . "</th><th>" . $lang['asgDateStart'] . "</th><th>" . $lang['asgDateEnd'] . "</th><th>" . $lang['asgPoints'] . "</th><th>" . $lang['fileActions'] . "</th> </tr>";
 
                     foreach ($assignment_sets as $set) {
                         echo "<tr>";
+                        echo "<td>{$set['file_name']}</td>";
                         echo "<td>{$set['set_name']}</td>";
                         echo "<td>{$set['start_date']}</td>";
                         echo "<td>{$set['end_date']}</td>";
@@ -98,16 +99,14 @@ if ($_SESSION['lang'] == 'sk') {
 
             function create_assignment_set($db, $set_name, $start_date, $end_date, $file_name, $points, $lang)
             {
-                $stmt = $db->prepare("SELECT COUNT(*) FROM assignments_sets WHERE set_name = :set_name AND start_date = :start_date AND end_date = :end_date");
+                $stmt = $db->prepare("SELECT COUNT(*) FROM assignments_sets WHERE set_name = :set_name");
                 $stmt->bindParam(":set_name", $set_name);
-                $stmt->bindParam(":start_date", $start_date);
-                $stmt->bindParam(":end_date", $end_date);
                 $stmt->execute();
                 $count = $stmt->fetchColumn();
 
                 if ($count == 0) {
-                    $stmt = $db->prepare("INSERT INTO assignments_sets (set_name, start_date, end_date, file_name, points) SELECT :set_name, :start_date, :end_date, :file_name, :points 
-                                          WHERE NOT EXISTS (SELECT 1 FROM assignments_sets WHERE set_name = :set_name AND start_date = :start_date AND end_date = :end_date)");
+                    $stmt = $db->prepare("INSERT INTO assignments_sets (set_name, start_date, end_date, file_name, points) 
+                                          VALUES (:set_name, :start_date, :end_date, :file_name, :points)");
                     $stmt->bindParam(":set_name", $set_name);
                     $stmt->bindParam(":start_date", $start_date);
                     $stmt->bindParam(":end_date", $end_date);
@@ -120,8 +119,11 @@ if ($_SESSION['lang'] == 'sk') {
                     } else {
                         echo $lang['asgInsertError'];
                     }
+                } else {
+                    echo $lang['asgInsertErrorExists'];
                 }
             }
+
 
             $files = array();
 

@@ -5,6 +5,7 @@ $lang = array(
     'title2' => 'Teacher Home Page',
     'title3' => 'Generate math problems',
     'title4' => 'Grade Overview',
+    'title5' => 'Student Profile',
     
     // Login page
     'login' => 'Login',
@@ -51,4 +52,13 @@ $lang = array(
     'create' => 'Create',
     'texOnly' => 'Only .tex files are allowed',
     'uploadMsg' => 'Please upload a file',
+
+    // Overview
+    'firstName' => 'First name',
+    'lastName' => 'Last name',
+    'studentID' => 'Student ID',
+    'setName' => 'Assignment name',
+    'tests' => 'Tests',
+    'points' => 'Points',
+    'exportCSV' => 'Export to CSV',
 );
