@@ -4,6 +4,7 @@ $lang = array(
     'title1' => 'Login',
     'title2' => 'Teacher Home Page',
     'title3' => 'Generate math problems',
+    'title4' => 'Grade Overview',
     
     // Login page
     'login' => 'Login',
@@ -16,9 +17,8 @@ $lang = array(
 
      // Teacher home page
     'header' => 'Teacher Home Page',
-    'menu1' => 'Student Grade Overview',
-    'menu2' => 'Assignment Submission',
-    'menu3' => 'Student Assessment and Testing',
+    'menu1' => 'Assignment Submission',
+    'menu2' => 'Student Grade Overview',
     'welcome' => 'Welcome to the home page',
     'rights' => '© 2023 - Teacher Home Page.',
 

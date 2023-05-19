@@ -24,8 +24,17 @@ footer {
     padding: 10px;
 }
 
+iframe {
+    display: block;
+    margin: 0 auto;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border: none;
+    border-radius: 10px;
+}
+
 /****************** IDs ******************/
-#main {
+#main, #main-frame {
     margin: 0 auto;
     margin-top: 2%;
     margin-bottom: 6%;
@@ -37,6 +46,18 @@ footer {
     border-radius: 10px;
 }
 
+#main-frame {
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+
+}
+
+#frame-bg {
+    background-color: #FFFFFF;
+}
+
 #problems img {
     display: block;
     margin: 0 auto;
@@ -44,56 +65,43 @@ footer {
     height: auto;
 }
 
+#files {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
 /**************** CLASSES ****************/
-.navbar {
-    background-color: #001128;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    height: 80px;
-    margin: 0;
-    padding: 0 20px;
-    width: 100%;
+.bg-dark {
+    background-color: #001128 !important;
 }
 
-.navbar a {
-    color: #FFFFFF;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    margin-right: 2rem;
-    border: 2px solid #ffffff00;
+.navbar-nav,
+.nav-link {
+    font-size: 1.2rem;
+    padding: 0.5rem;
 }
 
-.navbar a:first-child {
-    margin-left: 20px;
+.nav-link {
+    padding: 0.5rem;
+    color: #FFFFFF !important;
 }
 
-.navbar a:hover {
-    background-color: #3F76BF;
-    color: #FFFFFF;
-    border: 2px solid #3F76BF;
+.nav-link:hover {
+    background-color: #0069d9;
+    padding: 0.5rem;
     border-radius: 10px;
 }
 
-.navbar a.active {
-    background-color: #3F76BF;
-    color: #FFFFFF;
-}
-
-.language {
-    margin-left: auto;
-    margin-right: 2rem;
-}
-
 .language a {
-    color: #8F8F8F;
-    font-size: 14px;
+    color: #FFFFFF;
+    text-decoration: none;
 }
 
 .language a:hover {
-    color: #FFFFFF;
+    background-color: #0069d9;
+    border-radius: 10px;
 }
+
 
 .solution {
     margin: 0 auto;
@@ -196,7 +204,7 @@ footer {
 }
 
 .assignment-set-form select {
-    width: 82%;
+    width: 78%;
 }
 
 .assignment-set-form input[type="text"]:focus,

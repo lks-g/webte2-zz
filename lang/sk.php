@@ -5,6 +5,7 @@ $lang = array(
     'title1' => 'Prihlásenie',
     'title2' => 'Registrácia',
     'title3' => 'Generovanie príkladov',
+    'title4' => 'Prehľad hodnotenia študentov',
     
      // Login page
     'login' => 'Prihlásenie',
@@ -17,9 +18,8 @@ $lang = array(
     
      // Teacher home page
     'header' => 'Domovská stránka učiteľa',
-    'menu1' => 'Prehľad hodnotenia študentov',
-    'menu2' => 'Zadávanie úloh',
-    'menu3' => 'Hodnotenie a skúšanie žiakov',
+    'menu1' => 'Zadávanie úloh',
+    'menu2' => 'Prehľad hodnotenia študentov',
     'welcome' => 'Vitajte na domovskej stránke',
     'rights' => '© 2023 - Domovská stránka učiteľa.',
 

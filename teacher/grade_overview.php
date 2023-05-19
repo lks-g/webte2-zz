@@ -26,8 +26,8 @@ if ($_SESSION['lang'] == 'sk') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/teacher.css">
-    <title><?php echo $lang['title2']; ?></title>
+    <link rel="stylesheet" href="../css/style.css">
+    <title><?php echo $lang['title4']; ?></title>
 </head>
 
 <body>
@@ -45,22 +45,19 @@ if ($_SESSION['lang'] == 'sk') {
                     <a class="nav-link" href="generator.php"><?php echo $lang['menu1']; ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="grade_overview.php"><?php echo $lang['menu2']; ?></a>
+                    <a class="nav-link" href="#"><?php echo $lang['menu2']; ?></a>
                 </li>
             </ul>
             <div class="language">
-                <a class="nav-link" href="teacher.php?lang=sk">SK</a>
-                <a class="nav-link" href="teacher.php?lang=en">EN</a>
+                <a class="nav-link" href="grade_overview.php?lang=sk">SK</a>
+                <a class="nav-link" href="grade_overview.php?lang=en">EN</a>
             </div>
         </div>
     </nav>
 
+
     <div id="main">
-        <h1><?php echo $lang['header']; ?></h1>
-        <h2><?php echo $lang['welcome']; ?></h2>
-
-        <iframe src="https://site98.webte.fei.stuba.sk/zz/teacher/frame_generator.php" width="80%" height="800px"></iframe>
-
+        <h1><?php echo $lang['menu2']; ?></h1>
     </div>
 
     <footer>

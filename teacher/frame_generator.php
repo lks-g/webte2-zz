@@ -32,31 +32,9 @@ if ($_SESSION['lang'] == 'sk') {
     <title><?php echo $lang['title3']; ?></title>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="teacher.php"><?php echo $lang['header']; ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><?php echo $lang['menu1']; ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="grade_overview.php"><?php echo $lang['menu2']; ?></a>
-                </li>
-            </ul>
-            <div class="language">
-                <a class="nav-link" href="generator.php?lang=sk">SK</a>
-                <a class="nav-link" href="generator.php?lang=en">EN</a>
-            </div>
-        </div>
-    </nav>
+<body id="frame-bg">
 
-    <div id="main">
+    <div id="main-frame">
         <div class="data-table">
             <?php
             function get_assignment_sets($db, $file_name = null)
@@ -313,11 +291,6 @@ if ($_SESSION['lang'] == 'sk') {
             }
         };
     </script>
-
-    <footer>
-        <p><?php echo $lang['rights']; ?></p>
-    </footer>
-
 </body>
 
 </html>
