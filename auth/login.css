@@ -77,3 +77,11 @@ span {
     display: none;
     text-decoration-color: red;
 }
+#aisId_error {
+    display: none;
+    text-decoration-color: red;
+}
+#aisIdLeangh_error{
+    display: none;
+    text-decoration-color: red;
+}
