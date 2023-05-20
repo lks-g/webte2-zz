@@ -59,9 +59,14 @@ $lang = array(
     'lastName' => 'Priezvisko',
     'studentID' => 'ID študenta',
     'setName' => 'Názov testu',
-    'tests' => 'Testy',
+    'tests' => 'Vygenerované príklady',
     'points' => 'Body',
     'exportCSV' => 'Exportovať do CSV',
     'exportPDF' => 'Exportovať do PDF',
     'goBack' => 'Späť',
+
+    //Tutorial page
+    'tutorial' => 'Tutoriál',
+    'teacher-tuto' => 'Domovská stránka pre učiteľa je rozdelená do troch podstránok. Prvá podstránka s názvom Zadávanie úloh umožňuje učiteľovi nahrať LaTeX súbor s príkladmi, ktoré sú štruktúrované ako priložené LaTeX súbory blokovkaXXpr.tex alebo odozvaXXpr.tex. Po nahratí týchto súborov sa údaje o príkladoch uložia do databázy a učiteľovi sa zobrazí ukážka každého príkladu zo súboru pre kontrolu správnosti nahratých údajov. Po nahratí súboru je možné vytvoriť testy pre študentov. To funguje tak, že učiteľ si vyberie súbor príkladov z databázy z ktorých chce danú sadu vytvoriť. Ďalej zadá názov testu, určí dátum od kedy do kedy má byť tento test dostupný a počet bodov, ktoré môže študent za tento test získať. Na záver stačí kliknúť na tlačidlo <strong> Vytvoriť</strong> a test bude vytvorený a uložený do databázy. Informácie o všetkých súboroch v databáze a vytvorené testy sa zobrazujú v tabuľkách <strong> Testy</strong>  a  <strong> Súbory v databáze</strong> spolu s možnosťou vymazať tieto údaje z databázy. <strong> Po nahratí je potrebné stránku obnoviť aby sa aktualizovali tabuľky. </strong>',
+
 );

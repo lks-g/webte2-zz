@@ -58,10 +58,14 @@ $lang = array(
     'lastName' => 'Last name',
     'studentID' => 'Student ID',
     'setName' => 'Assignment name',
-    'tests' => 'Tests',
+    'tests' => 'Generated problems',
     'points' => 'Points',
     'exportCSV' => 'Export to CSV',
     'exportPDF' => 'Export to PDF',
     'goBack' => 'Back to Grade Overview',
+
+    // Student profile
+    'tutorial' => 'Tutorial',
+    'teacher-tuto' ,
     
 );

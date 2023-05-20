@@ -16,7 +16,7 @@ if($_POST["password"] || $_POST["email"]) {
                 header("Location:AuthIndex.php?error=Chyba");
 
             }
-            else{
+            else {
                 if(!password_verify($_POST['password'], $data['password'])){
                     header("Location:AuthIndex.php?error=Chyba");
                     echo "chyba " . $data['password'] . " " . $_POST['password'];
@@ -27,12 +27,12 @@ if($_POST["password"] || $_POST["email"]) {
                     $_SESSION['id'] = $data['id'];
                     $_SESSION['role'] = "teacher";
                     //TODO to premen na lokaciu kam ma presmerovat ucitela
-                    header("Location:teacher/teacher.php");
+                    header("Location:../teacher/teacher.php");
                     echo "good " . $data['password'] . " " . $_POST['password'];
                 }
             }
         }
-        else{
+        else {
             if(!password_verify($_POST['password'], $data['password'])){
                 header("Location:AuthIndex.php?error=Chyba");
                 echo "chyba " . $data['password'] . " " . $_POST['password'];
