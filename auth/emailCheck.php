@@ -23,12 +23,12 @@ if(isset($_GET['email'])) {
 }
 if(isset($_GET['aisId'])) {
 
-    $stmt = $myPDO->prepare("SELECT * FROM students WHERE aisId = :aisId;");
+    $stmt = $myPDO->prepare("SELECT * FROM students WHERE student_id = :aisId;");
     $stmt->bindParam(":aisId", $_GET["aisId"]);
     $stmt->execute();
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($data == null) {
-        $stmt = $myPDO->prepare("SELECT * FROM teachers WHERE aisId = :aisId;");
+        $stmt = $myPDO->prepare("SELECT * FROM teachers WHERE student_id = :aisId;");
         $stmt->bindParam(":aisId", $_GET["aisId"]);
         $stmt->execute();
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
