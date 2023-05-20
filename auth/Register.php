@@ -59,7 +59,7 @@ include 'config.php';
                 $_SESSION['id'] = $user_id;
                 $_SESSION['role'] = $_POST["radioGroup"];
                 //TODO to premen na lokaciu kam ma presmerovat ucitela
-                header("Location:testDashBoard.php");
+                header("Location:../teacher/teacher.php");
             }
 
         }
