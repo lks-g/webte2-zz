@@ -1,19 +1,24 @@
 <?php
 include 'config.php';
 
-    if($_POST["radioGroup"] || $_POST["email"]){
+    if($_POST["radioGroup"] || $_POST["email"] || $_POST['aisId']){
         $myPDO = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
         if($_POST["radioGroup"] == "student"){
             $stmt = $myPDO->prepare("SELECT * FROM students WHERE email = :email");
             $stmt->bindParam(":email", $_POST["email"]);
             $stmt->execute();
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($data == null){
+            $stmt = $myPDO->prepare("SELECT * FROM students WHERE aisId = :aisId");
+            $stmt->bindParam(":aisId", $_POST["aisId"]);
+            $stmt->execute();
+            $data2 = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($data == null || $data2 == null){
                 $passwordHash = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                $stmt = $myPDO->prepare("INSERT INTO students (first_name, last_name, username, email, password) VALUES (:first_name, :last_name, :username, :email, :password)");
+                $stmt = $myPDO->prepare("INSERT INTO students (first_name, last_name, username, aisId, email, password) VALUES (:first_name, :last_name, :username, :aisId, :email, :password)");
                 $stmt->bindParam(":first_name", $_POST["name"]);
                 $stmt->bindParam(":last_name", $_POST["surname"]);
                 $stmt->bindParam(":username", $_POST["username"]);
+                $stmt->bindParam(":aisId", $_POST["aisId"]);
                 $stmt->bindParam(":email", $_POST["email"]);
                 $stmt->bindParam(":password", $passwordHash);
                 $stmt->execute();
@@ -33,12 +38,17 @@ include 'config.php';
             $stmt->bindParam(":email", $_POST["email"]);
             $stmt->execute();
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($data == null){
+            $stmt = $myPDO->prepare("SELECT * FROM teachers WHERE aisId = :aisId");
+            $stmt->bindParam(":aisId", $_POST["aisId"]);
+            $stmt->execute();
+            $data2 = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($data == null || $data2 == null){
                 $passwordHash = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                $stmt = $myPDO->prepare("INSERT INTO teachers (first_name, last_name, username, email, password) VALUES (:first_name, :last_name, :username, :email, :password)");
+                $stmt = $myPDO->prepare("INSERT INTO teachers (first_name, last_name, username, aisId, email, password) VALUES (:first_name, :last_name, :username, :aisId, :email, :password)");
                 $stmt->bindParam(":first_name", $_POST["name"]);
                 $stmt->bindParam(":last_name", $_POST["surname"]);
                 $stmt->bindParam(":username", $_POST["username"]);
+                $stmt->bindParam(":aisId", $_POST["aisId"]);
                 $stmt->bindParam(":email", $_POST["email"]);
                 $stmt->bindParam(":password", $passwordHash);
                 $stmt->execute();
@@ -74,6 +84,9 @@ include 'config.php';
         <input class="inp" type="text" placeholder="Krstné meno" name="name" id="firstname" required>
         <input class="inp" type="text" placeholder="Priezvisko" name="surname" id="surname" required>
         <input class="inp" type="text" placeholder="Prezivka" name="username" id="username" required>
+        <input class="inp" type="text" placeholder="AisID" name="aisId" id="aisId" pattern="\d*" required min="6" max="6" >
+        <p id="aisId_error" class="inp">aisId uz je zabrati alebo je zle zadane</p>
+        <p id="aisIdLeangh_error" class="inp">aisId musi byt 6 cisel</p>
         <input class="inp" type="email" placeholder="Email" name="email" id="email" required>
         <p id="email_error" class="inp">Email uz je zabrati</p>
         <input class="inp" type="password" placeholder="Heslo" name="password" id="password" required>
