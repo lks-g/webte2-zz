@@ -112,4 +112,5 @@ $lang = array(
     'randomTask' => 'Náhodný príklad z $setName a $fileName',
     'noTaskFound' => 'Nenašiel sa žiadny príklad v LaTeX súbore.',
     'noAsgFound' => 'Nenašiel sa žiadny test v databáze.',
+    'logOut' => 'Odhlásiť sa',
 );

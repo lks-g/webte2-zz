@@ -112,4 +112,5 @@ $lang = array(
     'randomTask' => 'Random task from $setName and $fileName',
     'noTaskFound' => 'No task found in the LaTeX file.',
     'noAsgFound' => 'No assignment found.',
+    'logOut' => 'Logout',
 );

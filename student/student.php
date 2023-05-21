@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 if (!isset($_SESSION['name']) &&  $_SESSION["role"] != "student") {
@@ -37,7 +41,7 @@ if ($_SESSION['lang'] == 'sk') {
     <div class="navbar">
         <a href="student_assignment.php"><?php echo $lang['generateAssignments']; ?></a>
         <a href="#"><?php echo $lang['assignmentsOverview']; ?></a>
-        <a href="student.php"><?php echo $lang['student-homapage']; ?></a>
+        <a href="student.php"><?php echo $lang['student-homepage']; ?></a>
 
         <div class="language">
             <a href="student.php?lang=sk">SK</a>
@@ -46,10 +50,10 @@ if ($_SESSION['lang'] == 'sk') {
     </div>
 
     <div id="main">
-        <h1><?php echo $lang['student-homapage']; ?></h1>
+        <h1><?php echo $lang['student-homepage']; ?></h1>
         <h2><?php echo $lang['student-welcome']; ?></h2>
         <h1><?php echo $lang['loggedIn'];?> <?php echo $_SESSION['name'] ?> <?php $lang['student-role']?> <?php echo $_SESSION['role'] ?></h1>
-        <a href="../auth/Logout.php">Odhlásiť sa</a>
+        <a href="../auth/Logout.php"><?php echo $lang['logOut']?></a>
     </div>
 
     <footer>
