@@ -12,11 +12,15 @@ $lang = array(
      // Login page
     'login' => 'Prihlásenie',
     'username' => 'Používateľské meno',
+    'email' => 'Email',
     'username_placeholder' => 'Zadajte používateľské meno',
     'password_placeholder' => 'Zadajte heslo',
+    'email_placeholder' => 'Zadajte email',
     'password' => 'Heslo',
     'submit' => 'Prihlásiť sa',
     'register-text' => 'Registrácia',
+    'noAccount' => 'Nemáte účet?',
+    'register' => 'Zaregistruj sa',
     
      // Teacher home page
     'header' => 'Domovská stránka učiteľa',

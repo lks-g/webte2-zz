@@ -11,11 +11,15 @@ $lang = array(
     // Login page
     'login' => 'Login',
     'username' => 'Username',
+    'email' => 'Email',
     'username_placeholder' => 'Enter username',
     'password_placeholder' => 'Enter password',
+    'email_placeholder' => 'Enter email',
     'password' => 'Password',
     'submit' => 'Login',
     'register-text' => 'Register',
+    'noAccount' => 'Don\'t have an account?',
+    'register' => 'Register now',
 
      // Teacher home page
     'header' => 'Teacher Home Page',

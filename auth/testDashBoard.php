@@ -3,7 +3,7 @@
 //TODO spravnu rolu , pre student $_SESSION['role'] = "student" a pre teacher $_SESSION['role'] = "teacher"
 session_start();
 if(!isset($_SESSION['name']) || !isset($_SESSION['role'])){
-    header("Location: AuthIndex.php");
+    header("Location: ../index.php");
 }
 
 ?>
