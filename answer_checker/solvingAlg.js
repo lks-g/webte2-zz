@@ -243,9 +243,7 @@ function final(index){
         result = addMultiply(result);
         console.log("result: " + result);
 
-        let vysledok = result.replace(/[st]/g, "3");
-        vysledok = eval(vysledok);
-        console.log("vysledok: " + vysledok);
+
         return result;
     }
     catch (e){
