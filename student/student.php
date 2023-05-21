@@ -50,10 +50,10 @@ if ($_SESSION['lang'] == 'sk') {
     </div>
 
     <div id="main">
-        <h1>Student Home Page</h1>
-        <h2>Welcome to the Student page</h2>
-        <h1> Prihlaseny ako <?php echo $_SESSION['name']?> pod rolou <?php echo $_SESSION['role']?></h1>
-    <a href="../auth/Logout.php">Odhlásiť sa</a>
+        <h1><?php echo $lang['student-homepage']; ?></h1>
+        <h2><?php echo $lang['student-welcome']; ?></h2>
+        <h1><?php echo $lang['loggedIn'];?> <?php echo $_SESSION['name'] ?> <?php $lang['student-role']?> <?php echo $_SESSION['role'] ?></h1>
+        <a href="../auth/Logout.php"><?php echo $lang['logOut']?></a>
     </div>
 
     <footer>
