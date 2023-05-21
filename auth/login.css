@@ -65,22 +65,27 @@ img {
 span {
     margin-top: 1rem;
 }
+
 #password_error{
     display: none;
     text-decoration-color: red;
 }
+
 #email_error {
     display: none;
     text-decoration-color: red;
 }
+
 #bad_email {
     display: none;
     text-decoration-color: red;
 }
+
 #aisId_error {
     display: none;
     text-decoration-color: red;
 }
+
 #aisIdLeangh_error{
     display: none;
     text-decoration-color: red;

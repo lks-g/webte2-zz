@@ -78,6 +78,9 @@ try {
                 <li class="nav-item">
                     <a class="nav-link" href="#"><?php echo $lang['menu2']; ?></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../tutorial/tutorial.php"><?php echo $lang['menu3']; ?></a>
+                </li>
             </ul>
             <div class="language">
                 <a class="nav-link" href="get_student_details.php?firstName=<?php echo $firstName; ?>&lang=sk">SK</a>
