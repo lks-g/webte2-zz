@@ -1,0 +1,28 @@
+AuthIndex.php
+        -zasiela email a password na Login.php
+        -ak sa niekto snazi dostat na stranku bez opravnenia tak ho to posle sem
+Login.php
+        -overuje ci sa chce prihlasit student alebo ucitel
+        -po overeni otestuje ci je heslo spravne
+        -ak je vsetho spravne zalozi session s id, name a role
+        -ak nie tak ho posle na AuthIndex.php
+Logout.php
+        -odpoji uzivatela zo session a posle ho na AuthIndex.php
+emailCheck.php
+        -kontroluje ci je email a aisId uz v databaze
+        -ak nieje , da return ze sa clovek moze pod tymto aisId a email zaregistrovat
+        -ak je , da return ze sa clovek nemoze pod tymto aisId alebo email zaregistrovat
+Register.php
+        -zasiela formular sam na seba so zadanimi informaciami
+        -ak su vsetky podmienky splnene tak cloveka zaregistruje a zapne session s id, name a role ktoru si zvolil
+        -pri chybe ho posle na AuthIndex.php
+Register.js
+        -overuje ci heslo a opakovanie hesla su rovnake
+        -overuje ci aisId ma spravnu dlzku a ci uz nahodou nieje v databaze
+        -overuje ci email uz nahodou nieje v databaze;
+        -ak je vsetko v poriadku, po stlaceni Zaregistrovat cloveka zaregistruje
+solvingAlg.js
+        -preformatuje latex equation na formu ktorej math js rozumie
+        -vie pracovat s power, root, dfrac, frac, [, ], eta, e a vie orezat funkciu aby sa dala spracovat
+        -porovna vysledky vysledok  odpoved a vrati true ak sa rovnaju a false ak nie, v pripade chyby vrati false
+
