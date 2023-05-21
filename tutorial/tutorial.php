@@ -27,7 +27,7 @@ if ($_SESSION['lang'] == 'sk') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/teacher.css">
-    <title><?php echo $lang['title2']; ?></title>
+    <title><?php echo $lang['title6']; ?></title>
 </head>
 
 <body>
@@ -39,26 +39,38 @@ if ($_SESSION['lang'] == 'sk') {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="teacher.php"><?php echo $lang['header']; ?></a>
+                    <a class="nav-link" href="../teacher/teacher.php"><?php echo $lang['header']; ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="generator.php"><?php echo $lang['menu1']; ?></a>
+                    <a class="nav-link" href="../teacher/generator.php"><?php echo $lang['menu1']; ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="grade_overview.php"><?php echo $lang['menu2']; ?></a>
+                    <a class="nav-link" href="../teacher/grade_overview.php"><?php echo $lang['menu2']; ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../tutorial/tutorial.php"><?php echo $lang['menu3']; ?></a>
                 </li>
             </ul>
             <div class="language">
-                <a class="nav-link" href="teacher.php?lang=sk">SK</a>
-                <a class="nav-link" href="teacher.php?lang=en">EN</a>
+                <a class="nav-link" href="tutorial.php?lang=sk">SK</a>
+                <a class="nav-link" href="tutorial.php?lang=en">EN</a>
             </div>
         </div>
     </nav>
 
     <div id="main">
-        <h1><?php echo $lang['tutorial']; ?></h1>   
-        <h1><?php echo $lang['teacher']; ?></h1>
-        <p><?php echo $lang['teacher-tuto']; ?></p>
+        <div id="tuto">
+            <h1><?php echo $lang['tutorial']; ?></h1><br>
+            <h1><?php echo $lang['tSite']; ?></h1>
+            <p><?php echo $lang['teacher-tuto']; ?></p><br>
+            <h1><?php echo $lang['sSite']; ?></h1>
+            <p><?php echo $lang['student-tuto']; ?></p><br>
+            <h1><?php echo $lang['problemsTuto']; ?></h1>
+        </div>
+
+        <form method="post" action="">
+            <button class="submit-button" id="export-pdf-button" type="submit" name="export-pdf"><?php echo $lang['exportPDF']; ?></button>
+        </form>
     </div>
 
     <footer>
@@ -67,6 +79,14 @@ if ($_SESSION['lang'] == 'sk') {
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.getElementById('export-pdf-button').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.print();
+        });
+    </script>
+
 </body>
 
 </html>

@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 if (isset($_GET['lang'])) {
@@ -32,15 +36,15 @@ if ($_SESSION['lang'] == 'sk') {
 <body>
     <div id="login">
         <h1><?php echo $lang['login']; ?></h1>
-        <form action="teacher/teacher.php" method="post">
-            <label for="username"><?php echo $lang['username']; ?></label>
-            <input type="text" name="username" id="username" placeholder="<?php echo $lang['username_placeholder']; ?>">
+        <form action="./auth/Login.php" method="post">
+            <label for="email"><?php echo $lang['email']; ?></label>
+            <input type="email" placeholder="<?php echo $lang['email_placeholder']; ?>" name="email" id="email" required>
             <label for="password"><?php echo $lang['password']; ?></label>
             <input type="password" name="password" id="password" placeholder="<?php echo $lang['password_placeholder']; ?>">
             <input type="submit" value="<?php echo $lang['submit']; ?>">
-            <a id="register" href="php/register.php"><?php echo $lang['register-text']; ?></a>
+            <p><?php echo $lang['noAccount']; ?></p> <a href="./auth/Register.php"><?php echo $lang['register']; ?></a>
         </form>
-      
+
         <div class="language">
             <a href="index.php?lang=sk">SK</a>
             <a href="index.php?lang=en">EN</a>

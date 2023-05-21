@@ -40,6 +40,14 @@ body {
     text-align: center;
 }
 
+#login span {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
 #login h1 {
     font-size: 24px;
     margin-bottom: 5%;
@@ -55,7 +63,8 @@ body {
 }
 
 #login input[type="text"],
-#login input[type="password"] {
+#login input[type="password"],
+#login input[type="email"] {
     width: 100%;
     padding: 10px;
     border: none;
@@ -65,7 +74,8 @@ body {
 }
 
 #login input[type="text"]:focus,
-#login input[type="password"]:focus {
+#login input[type="password"]:focus,
+#login input[type="email"]:focus {
     outline: none;
     border-bottom: 3px solid #3F76BF;
 }
@@ -84,6 +94,31 @@ body {
 
 #login input[type="submit"]:hover {
     background-color: #1db392;
+}
+
+#password_error{
+    display: none;
+    text-decoration-color: red;
+}
+
+#email_error {
+    display: none;
+    text-decoration-color: red;
+}
+
+#bad_email {
+    display: none;
+    text-decoration-color: red;
+}
+
+#aisId_error {
+    display: none;
+    text-decoration-color: red;
+}
+
+#aisIdLeangh_error{
+    display: none;
+    text-decoration-color: red;
 }
 
 /**************** CLASSES ****************/

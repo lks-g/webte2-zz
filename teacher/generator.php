@@ -48,6 +48,9 @@ if ($_SESSION['lang'] == 'sk') {
                 <li class="nav-item">
                     <a class="nav-link" href="grade_overview.php"><?php echo $lang['menu2']; ?></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../tutorial/tutorial.php"><?php echo $lang['menu3']; ?></a>
+                </li>
             </ul>
             <div class="language">
                 <a class="nav-link" href="generator.php?lang=sk">SK</a>
@@ -313,7 +316,7 @@ if ($_SESSION['lang'] == 'sk') {
             }
         };
     </script>
-     <script src="../script/teacher.js"></script>
+    <script src="../script/teacher.js"></script>
 
     <footer>
         <p><?php echo $lang['rights']; ?></p>

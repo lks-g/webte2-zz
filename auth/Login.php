@@ -1,5 +1,11 @@
 <?php
-include 'config.php';
+
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once('../config.php');
 
 if($_POST["password"] || $_POST["email"]) {
     $myPDO = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
@@ -13,12 +19,12 @@ if($_POST["password"] || $_POST["email"]) {
             $stmt->execute();
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             if($data == null){
-                header("Location:AuthIndex.php?error=Chyba");
+                header("Location:../index.php?error=Chyba");
 
             }
             else {
                 if(!password_verify($_POST['password'], $data['password'])){
-                    header("Location:AuthIndex.php?error=Chyba");
+                    header("Location:../index.php?error=Chyba");
                     echo "chyba " . $data['password'] . " " . $_POST['password'];
                 }
                 else {
@@ -32,9 +38,10 @@ if($_POST["password"] || $_POST["email"]) {
                 }
             }
         }
+
         else {
             if(!password_verify($_POST['password'], $data['password'])){
-                header("Location:AuthIndex.php?error=Chyba");
+                header("Location:../index.php?error=Chyba");
                 echo "chyba " . $data['password'] . " " . $_POST['password'];
             }
             else {

@@ -47,6 +47,9 @@ if ($_SESSION['lang'] == 'sk') {
                 <li class="nav-item">
                     <a class="nav-link" href="grade_overview.php"><?php echo $lang['menu2']; ?></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../tutorial/tutorial.php"><?php echo $lang['menu3']; ?></a>
+                </li>
             </ul>
             <div class="language">
                 <a class="nav-link" href="teacher.php?lang=sk">SK</a>
@@ -58,9 +61,6 @@ if ($_SESSION['lang'] == 'sk') {
     <div id="main">
         <h1><?php echo $lang['header']; ?></h1>
         <h2><?php echo $lang['welcome']; ?></h2>
-
-        <iframe src="https://site98.webte.fei.stuba.sk/zz/teacher/frame_overview.php" width="80%" height="500px"></iframe>
-
     </div>
 
     <footer>

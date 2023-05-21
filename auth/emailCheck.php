@@ -1,5 +1,7 @@
 <?php
-include 'config.php';
+
+require_once('../config.php');
+
 $myPDO = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 if(isset($_GET['email'])) {
 
