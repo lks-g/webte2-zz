@@ -2,6 +2,15 @@
 
 session_start();
 
+
+
+
+
+if(!isset($_SESSION['name']) &&  $_SESSION["role"] != "student" ){
+    header("Location: ../index.php");
+}
+
+
 if (isset($_GET['lang'])) {
     $_SESSION['lang'] = $_GET['lang'];
 }
@@ -44,6 +53,8 @@ if ($_SESSION['lang'] == 'sk') {
     <div id="main">
         <h1>Student Home Page</h1>
         <h2>Welcome to the Student page</h2>
+        <h1> Prihlaseny ako <?php echo $_SESSION['name']?> pod rolou <?php echo $_SESSION['role']?></h1>
+    <a href="../auth/Logout.php">Odhlásiť sa</a>
     </div>
 
     <footer>
