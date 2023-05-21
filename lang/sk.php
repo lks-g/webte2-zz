@@ -7,6 +7,7 @@ $lang = array(
     'title4' => 'Prehľad hodnotenia študentov',
     'title5' => 'Profil študenta',
     'title6' => 'Návod na použitie',
+    'title7' => 'Registrácia',
     
      // Login page
     'login' => 'Prihlásenie',
@@ -20,14 +21,30 @@ $lang = array(
     'register-text' => 'Registrácia',
     'noAccount' => 'Nemáte účet?',
     'register' => 'Zaregistruj sa',
-    
+    'logout' => 'Odhlásiť sa',
+
+    // Register page
+    'register-title' => 'Registrácia',
+    'nick' => 'Prezývka',
+    'aisID' => 'AIS ID',
+    'aisIDError' => 'Ais ID už je zabraté, alebo je zle zadané.',
+    'aisIDLengthError' => 'Ais ID musí mať 6 znakov.',
+    'emailError' => 'Email už je zabratý, alebo je zle zadaný.',
+    'retryPassword' => 'Zopakujte heslo',
+    'passError' => 'Heslá sa nezhodujú.',
+    'student' => 'Študent',
+    'teacher' => 'Učiteľ',
+    'haveAcc' => 'Máte už účet?',
+    'loginNow' => 'Prihláste sa',
+
      // Teacher home page
     'header' => 'Domovská stránka učiteľa',
     'menu1' => 'Zadávanie úloh',
     'menu2' => 'Prehľad hodnotenia študentov',
     'menu3' => 'Návod na použitie',
-    'welcome' => 'Vitajte na domovskej stránke',
+    'welcome' => 'Vitajte na domovskej stránke ',
     'rights' => '© 2023 - Domovská stránka učiteľa.',
+    'session-info' => 'Ste prihlásený ako ',
 
     // Generator
     'file-input' => 'Vyberte LaTeX súbor:',
@@ -77,4 +94,23 @@ $lang = array(
     'sSite' => 'Stránka študenta',
     'student-tuto' => '',
     'problemsTuto' => 'Ako riešiť príklady',
+
+    // Student home page
+    'student-title' => 'Domovská stránka študenta',
+    'student-asgTitle' => 'Testy',
+    'generateAssignments' => 'Vygeneruj príklad',
+    'assignmentsOverview' => 'Prehľad príkladov',
+    'student-homepage' => 'Domovská stránka študenta',
+    'student-welcome' => 'Vitajte na domovskej stránke študenta ',
+    'loggedIn' => 'Ste prihlásený ako ',
+    'student-role' => 'pod rolou ',
+    'student-rights' => '© 2023 - Domovská stránka študenta',
+    'generate-title' => 'Študentská stránka pre generovanie príkladov',
+    'generate-click' => 'Kliknite na tlačidlo "Vygeneruj príklad" pre vygenerovanie príkladu.',
+    'taskFrom' => 'Príklad z testu ',
+    'sendAnswer' => 'Odošli odpoveď',
+    'randomTask' => 'Náhodný príklad z $setName a $fileName',
+    'noTaskFound' => 'Nenašiel sa žiadny príklad v LaTeX súbore.',
+    'noAsgFound' => 'Nenašiel sa žiadny test v databáze.',
+    'logOut' => 'Odhlásiť sa',
 );

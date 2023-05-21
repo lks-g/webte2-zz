@@ -2,6 +2,10 @@
 
 require_once('../config.php');
 
+if(!isset($_SESSION['name']) || !isset($_SESSION['role']) != "teacher") {
+    header("Location: ../index.php");
+}
+
 if (isset($_GET['set_id'])) {
     $set_id = $_GET['set_id'];
 

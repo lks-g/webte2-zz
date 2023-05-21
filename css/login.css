@@ -17,6 +17,16 @@ body {
 
 /****************** IDs ******************/
 
+#volba {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+#volba input[type="radio"] {
+    margin-left: 3%;
+}
+
 #register {
     display: block;
     color: #001128;
@@ -35,7 +45,8 @@ body {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
     width: 25%;
     margin: 0 auto;
-    margin-top: 13%;
+    margin-top: 8%;
+    margin-bottom: 8%;
     padding: 40px;
     text-align: center;
 }
@@ -96,7 +107,7 @@ body {
     background-color: #1db392;
 }
 
-#password_error{
+#password_error {
     display: none;
     text-decoration-color: red;
 }
@@ -116,7 +127,7 @@ body {
     text-decoration-color: red;
 }
 
-#aisIdLeangh_error{
+#aisIdLeangh_error {
     display: none;
     text-decoration-color: red;
 }

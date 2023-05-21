@@ -2,6 +2,10 @@
 
 session_start();
 
+if (!isset($_SESSION['name']) || !isset($_SESSION['role']) != "teacher") {
+    header("Location: ../index.php");
+}
+
 if (isset($_GET['lang'])) {
     $_SESSION['lang'] = $_GET['lang'];
 }
@@ -60,7 +64,10 @@ if ($_SESSION['lang'] == 'sk') {
 
     <div id="main">
         <h1><?php echo $lang['header']; ?></h1>
-        <h2><?php echo $lang['welcome']; ?></h2>
+        <h2><?php echo $lang['welcome']; ?> <?php echo $_SESSION['name'] ?></h2>
+        <h2><?php echo $lang['session-info']; ?><?php echo $_SESSION['role'] ?></h1>
+        <a href="../auth/Logout.php"><?php echo $lang['logout']; ?></a>
+        <div class="tutorialBtn"><a href="../tutorial/tutorial.php"><?php echo $lang['tutorial']; ?></a></div>
     </div>
 
     <footer>
