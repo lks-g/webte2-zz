@@ -179,7 +179,7 @@ function changeDfrac2Normal(index){
         // console.log("Whole string: ", match[0]);
         const newSubString = "(" + firstContent + ")/(" + secondContent + ")";
         console.log("newSubString: " + newSubString);
-        updatedString = updatedString.replace(match[0], newSubString);
+        updatedString = updatedString.replace(match[0], "(" + newSubString + ")");
     }
     console.log("Original: " + index);
     console.log("Updated String: " + updatedString);
@@ -239,6 +239,7 @@ function final(index){
         result = replacePower(result);
         result = replaceRemainingBraces(result);
         result = replaceEta(result);
+        result = addMultiply(result);
         result = replaceE(result);
         result = addMultiply(result);
         console.log("result: " + result);
@@ -260,8 +261,8 @@ function evaluate(solution, answer) {
     try {
         let vysledok1 = eval(vysledok);
         let odpoved1 = eval(odpoved);
-        vysledok1 = vysledok1.toFixed(4);
-        odpoved1 = odpoved1.toFixed(4);
+        vysledok1 = vysledok1.toFixed(3);
+        odpoved1 = odpoved1.toFixed(3);
         console.log("vysledok: " + vysledok1 + " : " + odpoved1);
         if (vysledok1 === odpoved1) {
             console.log("true1");
@@ -276,9 +277,11 @@ function evaluate(solution, answer) {
     }
 }
 function dokoncenie() {
-    let solution = final("\\dfrac{2s+ 1}{6s +4}");
-    let answer = final("\\frac{0.5s + 0.25}{1.5s +1}s");
+    let solution = final("y(t)=\\left[ \\dfrac{3}{4}-\\dfrac{3}{4}e^{-\\frac{4}{5}(t-7)}-\\dfrac{3}{5}(t-7)e^{-\\frac{4}{5}(t-7)} \\right] \\eta(t-7)");
+    let answer = final("\\left[ \\dfrac{7}{5}-\\dfrac{7}{5}e^{-\\frac{5}{2}(t-6)}-\\dfrac{7t}{2}(t-6)e^{-\\frac{15}{2}(t-6)} \\right] \\eta(2t-6)");
+
     let vysledok = evaluate(solution, answer);
+    console.log("odpoved: " + solution + " : " + answer);
     return vysledok;
 }
 // console.log(2 * 3 ** 3)
