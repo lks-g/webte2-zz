@@ -55,6 +55,7 @@ if ($_POST["radioGroup"] || $_POST["email"] || $_POST['aisId']) {
             session_start();
             $_SESSION['name'] = $_POST['username'];
             $_SESSION['id'] = $user_id;
+            $_SESSION['student_id'] = $_POST['aisId'];
             $_SESSION['role'] = $_POST["radioGroup"];
             //TODO to premen na lokaciu kam ma presmerovat ucitela
             header("Location:../teacher/teacher.php");
