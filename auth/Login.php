@@ -49,8 +49,8 @@ if($_POST["password"] || $_POST["email"]) {
                 $_SESSION['name'] = $data['username'];
                 $_SESSION['id'] = $data['id'];
                 $_SESSION['role'] = "student";
-                //TODO to premen na lokaciu kam ma presmerovat studenta
-                header("Location:testDashBoard.php");
+                $_SESSION['student_id'] = $data['student_id'];
+                header("Location:../student/student.php");
                 echo "good " . $data['password'] . " " . $_POST['password'];
             }
         }
