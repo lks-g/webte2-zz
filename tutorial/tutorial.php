@@ -60,9 +60,12 @@ if ($_SESSION['lang'] == 'sk') {
 
     <div id="main">
         <div id="tuto">
-            <h1><?php echo $lang['tutorial']; ?></h1>
+            <h1><?php echo $lang['tutorial']; ?></h1><br>
             <h1><?php echo $lang['tSite']; ?></h1>
-            <p><?php echo $lang['teacher-tuto']; ?></p>
+            <p><?php echo $lang['teacher-tuto']; ?></p><br>
+            <h1><?php echo $lang['sSite']; ?></h1>
+            <p><?php echo $lang['student-tuto']; ?></p><br>
+            <h1><?php echo $lang['problemsTuto']; ?></h1>
         </div>
 
         <form method="post" action="">

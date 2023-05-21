@@ -1,9 +1,8 @@
 <?php
 $lang = array(
     // Page Titles
-    'title' => 'Domovská stránka učiteľa',
     'title1' => 'Prihlásenie',
-    'title2' => 'Registrácia',
+    'title2' => 'Domovská stránka učiteľa',
     'title3' => 'Generovanie príkladov',
     'title4' => 'Prehľad hodnotenia študentov',
     'title5' => 'Profil študenta',
@@ -73,6 +72,9 @@ $lang = array(
 
     //Tutorial page
     'tutorial' => 'Návod na použitie',
-    'tSite' => 'Domovská stránka učiteľa',
+    'tSite' => 'Stránka učiteľa',
     'teacher-tuto' => 'Domovská stránka pre učiteľa je rozdelená do troch podstránok. Prvá podstránka s názvom "Zadávanie úloh" umožňuje učiteľovi nahrať LaTeX súbor s príkladmi, ktoré sú štruktúrované ako priložené LaTeX súbory blokovkaXXpr.tex alebo odozvaXXpr.tex. Po nahratí týchto súborov sa údaje o príkladoch uložia do databázy a učiteľovi sa zobrazí ukážka každého príkladu zo súboru pre kontrolu správnosti nahratých údajov. Po nahratí súboru je možné vytvoriť testy pre študentov. To funguje tak, že učiteľ si vyberie súbor príkladov z databázy, z ktorých chce danú sadu vytvoriť. Ďalej si zvolí názov testu, určí dátum od kedy do kedy má byť tento test dostupný a počet bodov, ktoré môže študent za tento test získať. Na záver stačí kliknúť na tlačidlo "Vytvoriť" a test bude vytvorený a uložený do databázy. Informácie o všetkých súboroch v databáze a vytvorené testy sa zobrazujú v tabuľkách <strong>Testy</strong>  a  <strong> Súbory v databáze</strong> spolu s možnosťou vymazať tieto údaje z databázy. <strong> Po nahratí je potrebné stránku obnoviť aby sa aktualizovali tabuľky. </strong>. Ďalšia podstránka s názvom "Prehľad hodnotenia študentov" obsahuje tabuľku všetkých študentov, ktorú je možné usporiadať podľa mena, priezviska, id a počtu bodov z testov, pričom je možné kliknúť na ľubovoľného študenta pre zobrazenie jeho osobného profilu, kde sa zobrazia informácie o všetkých testoch ktoré písal a body ktoré z nich získal. Pod tabuľkou je tlačidlo ktoré umožňuje exportovať tieto údaje do CSV súboru.',
+    'sSite' => 'Stránka študenta',
+    'student-tuto' => '',
+    'problemsTuto' => 'Ako riešiť príklady',
 );
