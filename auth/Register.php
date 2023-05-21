@@ -2,6 +2,23 @@
 
 require_once('../config.php');
 
+session_start();
+
+if (isset($_GET['lang'])) {
+    $_SESSION['lang'] = $_GET['lang'];
+}
+
+if (!isset($_SESSION['lang'])) {
+    $_SESSION['lang'] = 'sk';
+}
+
+if ($_SESSION['lang'] == 'sk') {
+    include('../lang/sk.php');
+} else {
+    include('../lang/en.php');
+}
+
+
 if ($_POST["radioGroup"] || $_POST["email"] || $_POST['aisId']) {
     $myPDO = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
     if ($_POST["radioGroup"] == "student") {
@@ -70,38 +87,43 @@ if ($_POST["radioGroup"] || $_POST["email"] || $_POST['aisId']) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../css/login.css">
     <script src="Register.js" defer></script>
-    <title>Register</title>
+    <title><?php echo $lang['title7']; ?></title>
 </head>
 
 <body>
-    <div id="dash">
+    <div id="login">
         <form action="Register.php" method="post" id="regForm">
-            <h2>Registrácia</h2>
-            <input class="inp" type="text" placeholder="Krstné meno" name="name" id="firstname" required>
-            <input class="inp" type="text" placeholder="Priezvisko" name="surname" id="surname" required>
-            <input class="inp" type="text" placeholder="Prezivka" name="username" id="username" required>
-            <input class="inp" type="text" placeholder="AisID" name="aisId" id="aisId" pattern="\d*" required min="6" max="6">
-            <p id="aisId_error" class="inp">aisId uz je zabrati alebo je zle zadane</p>
-            <p id="aisIdLeangh_error" class="inp">aisId musi byt 6 cisel</p>
-            <input class="inp" type="email" placeholder="Email" name="email" id="email" required>
-            <p id="email_error" class="inp">Email uz je zabrati</p>
-            <input class="inp" type="password" placeholder="Heslo" name="password" id="password" required>
-            <input class="inp" type="password" placeholder="Zopakuj Heslo" name="re_password" id="re_password" required>
-            <p id="password_error" class="inp">Hesla sa nerovnaju</p>
+            <h2><?php echo $lang['register-title']; ?></h2>
+            <input class="inp" type="text" placeholder="<?php echo $lang['firstName']; ?>" name="name" id="firstname" required>
+            <input class="inp" type="text" placeholder="<?php echo $lang['lastName']; ?>" name="surname" id="surname" required>
+            <input class="inp" type="text" placeholder="<?php echo $lang['nick']; ?>" name="username" id="username" required>
+            <input class="inp" type="text" placeholder="<?php echo $lang['aisID']; ?>" name="aisId" id="aisId" pattern="\d*" required min="6" max="6">
+            <p id="aisId_error" class="inp"><?php echo $lang['aidIDError']; ?></p>
+            <p id="aisIdLeangh_error" class="inp"><?php echo $lang['aisIDLengthError']; ?></p>
+            <input class="inp" type="email" placeholder="<?php echo $lang['email_placeholder']; ?>" name="email" id="email" required>
+            <p id="email_error" class="inp"><?php echo $lang['emailError']; ?></p>
+            <input class="inp" type="password" placeholder="<?php echo $lang['password_placeholder']; ?>" name="password" id="password" required>
+            <input class="inp" type="password" placeholder="<?php echo $lang['retryPassword']; ?>" name="re_password" id="re_password" required>
+            <p id="password_error" class="inp"><?php echo $lang['passError']; ?></p>
             <div id="volba">
                 <input type="radio" name="radioGroup" id="studentOption" value="student" checked>
-                <label for="studentOption">Student</label>
+                <label for="studentOption"><?php echo $lang['student']; ?></label>
                 <input type="radio" name="radioGroup" id="teacherOption" value="teacher">
-                <label for="teacherOption">Ucitel</label>
+                <label for="teacherOption"><?php echo $lang['teacher']; ?></label>
             </div>
-            <input class="btn" id="regButton" type="submit" value="Register">
+            <input class="btn" id="regButton" type="submit" value="<?php echo $lang['register']; ?>">
         </form>
         <div>
             <span>
-                <p>Už maš účet ?</p> <a href="../index.php">Prihlás sa</a>
+                <p><?php echo $lang['haveAcc']; ?></p> <a href="../index.php"><?php echo $lang['loginNow']; ?></a>
             </span>
+        </div>
+
+        <div class="language">
+            <a href="Register.php?lang=sk">SK</a>
+            <a href="Register.php?lang=en">EN</a>
         </div>
     </div>
 

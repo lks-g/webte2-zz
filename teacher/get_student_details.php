@@ -4,6 +4,10 @@ session_start();
 
 require_once('../config.php');
 
+if(!isset($_SESSION['name']) || !isset($_SESSION['role']) != "teacher") {
+    header("Location: ../index.php");
+}
+
 if (!isset($_GET['firstName'])) {
     header('Location: grade_overview.php');
     exit();

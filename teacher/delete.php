@@ -4,6 +4,10 @@ require_once('../config.php');
 
 header("Content-Type: application/json; charset=UTF-8");
 
+if(!isset($_SESSION['name']) || !isset($_SESSION['role']) != "teacher") {
+    header("Location: ../index.php");
+}
+
 if (isset($_GET['file'])) {
     $file_name = $_GET['file'];
 

@@ -2,14 +2,9 @@
 
 session_start();
 
-
-
-
-
-if(!isset($_SESSION['name']) &&  $_SESSION["role"] != "student" ){
+if (!isset($_SESSION['name']) &&  $_SESSION["role"] != "student") {
     header("Location: ../index.php");
 }
-
 
 if (isset($_GET['lang'])) {
     $_SESSION['lang'] = $_GET['lang'];
@@ -35,30 +30,30 @@ if ($_SESSION['lang'] == 'sk') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/student.css">
-    <title>Student Home Page</title>
+    <title><?php echo $lang['student-title']; ?></title>
 </head>
 
 <body>
     <div class="navbar">
-    <a href="student_assignment.php">Generate Assignments</a>
-        <a href="#">Overview of Assignments</a>
-        <a href="student.php">Student Home P/age</a>
-    
+        <a href="student_assignment.php"><?php echo $lang['generateAssignments']; ?></a>
+        <a href="#"><?php echo $lang['assignmentsOverview']; ?></a>
+        <a href="student.php"><?php echo $lang['student-homapage']; ?></a>
+
         <div class="language">
-            <a href="teacher.php?lang=sk">SK</a>
-            <a href="teacher.php?lang=en">EN</a>
+            <a href="student.php?lang=sk">SK</a>
+            <a href="student.php?lang=en">EN</a>
         </div>
     </div>
 
     <div id="main">
-        <h1>Student Home Page</h1>
-        <h2>Welcome to the Student page</h2>
-        <h1> Prihlaseny ako <?php echo $_SESSION['name']?> pod rolou <?php echo $_SESSION['role']?></h1>
-    <a href="../auth/Logout.php">Odhlásiť sa</a>
+        <h1><?php echo $lang['student-homapage']; ?></h1>
+        <h2><?php echo $lang['student-welcome']; ?></h2>
+        <h1><?php echo $lang['loggedIn'];?> <?php echo $_SESSION['name'] ?> <?php $lang['student-role']?> <?php echo $_SESSION['role'] ?></h1>
+        <a href="../auth/Logout.php">Odhlásiť sa</a>
     </div>
 
     <footer>
-        <p>© 2023 - Student Home Page.</p>
+        <p><?php echo $lang['student-rights']; ?></p>
     </footer>
 </body>
 
