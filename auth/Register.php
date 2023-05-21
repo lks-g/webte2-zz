@@ -29,8 +29,7 @@ if ($_POST["radioGroup"] || $_POST["email"] || $_POST['aisId']) {
             $_SESSION['name'] = $_POST['username'];
             $_SESSION['id'] = $user_id;
             $_SESSION['role'] = $_POST["radioGroup"];
-            //TODO to premen na lokaciu kam ma presmerovat studenta
-            header("Location:testDashBoard.php");
+            header("Location:../student/student.php");
         }
     } elseif ($_POST["radioGroup"] == "teacher") {
         $stmt = $myPDO->prepare("SELECT * FROM teachers WHERE email = :email");

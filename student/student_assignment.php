@@ -7,6 +7,14 @@ session_start();
 
 require_once('../config.php');
 
+
+
+if(!isset($_SESSION['name']) &&  $_SESSION["role"] != "student" ){
+    header("Location: ../index.php");
+}
+
+
+
 if (isset($_GET['lang'])) {
     $_SESSION['lang'] = $_GET['lang'];
 }
@@ -75,18 +83,29 @@ if (isset($_POST['generate'])) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Retrieve a random task from a random file
-    $sql = "SELECT * FROM assignments ORDER BY RAND() LIMIT 1";
+    // Retrieve a random file_name from assignment_sets table
+    $sql = "SELECT file_name, set_name FROM assignments_sets";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $fileName = $row['file_name'];
-        $latexData = $row['latex_data'];
+        $setName = $row['set_name'];
+
+        // Retrieve latex_data based on the file_name from assignments table
+        $sql = "SELECT latex_data FROM assignments WHERE file_name = '$fileName' ";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $latexData = $row['latex_data'];
+        }
+        
+        
         echo "<script>";
         echo "console.log(" . json_encode($latexData) . ");";
         echo "</script>";
-        // Define possible start tags
+        
         $startTags = array('\begin{task}', '\begin{responsetask}');
         echo "<script>";
     echo "console.log(" . json_encode($startTags) . ");";
@@ -95,23 +114,23 @@ if (isset($_POST['generate'])) {
     
 
 
-    $startPosArray = array(); // Pole na uchovávanie pozícií výskytov startTagov
+    $startPosArray = array(); 
 
 foreach ($startTags as $tag) {
     $startPos = strpos($latexData, $tag);
     while ($startPos !== false) {
-        $startPosArray[] = $startPos; // Uložiť pozíciu výskytu do poľa
-        $startPos = strpos($latexData, $tag, $startPos + 1); // Hľadaj ďalší výskyt za posledným nájdeným
+        $startPosArray[] = $startPos; 
+        $startPos = strpos($latexData, $tag, $startPos + 1);
     }
 }
 
-// Vybrať náhodnú pozíciu startTagu z poľa $startPosArray
-$randomIndex = array_rand($startPosArray); // Náhodný index v poľa $startPosArray
-$startPos = $startPosArray[$randomIndex]; // Náhodná pozícia startTagu
+
+$randomIndex = array_rand($startPosArray);
+$startPos = $startPosArray[$randomIndex]; 
 echo "<script>";
 echo "console.log(" . json_encode($startPos) . ");";
 echo "</script>";
-// Nájsť príslušný startTag a endTag na základe vybranej pozície
+
 $startTag = '';
 $endTag = '';
 foreach ($startTags as $tag) {
@@ -126,14 +145,7 @@ foreach ($startTags as $tag) {
     }
 }
 
-$endPos = strpos($latexData, $endTag, $startPos); // Hľadaj endTag od v
-
-
-
-
-
-
-
+$endPos = strpos($latexData, $endTag, $startPos); 
 
 
 
@@ -153,7 +165,7 @@ $endPos = strpos($latexData, $endTag, $startPos); // Hľadaj endTag od v
             $taskContent = str_replace('.jpg}', '.jpg" alt="Image">', $taskContent);
             
             echo "<div class='task'>";
-            echo "<h3>Random Task from $fileName:</h3>";
+            echo "<h3>Task from $setName ( $fileName )</h3>";
             echo "<div id='mathjax-content'>";
             echo "<span>  $taskContent</span>";
             echo "</div>";
@@ -166,7 +178,7 @@ $endPos = strpos($latexData, $endTag, $startPos); // Hľadaj endTag od v
             
         } else {
             echo "<div class='task'>";
-            echo "<h3>Random Task from $fileName:</h3>";
+            echo "<h3>Random Task from $setName and $fileName </h3>";
             echo "No task found in the LaTeX file.";
             echo "</div>";
         }
@@ -174,7 +186,7 @@ $endPos = strpos($latexData, $endTag, $startPos); // Hľadaj endTag od v
         echo "No assignments found.";
     }
 
-    // Close the database connection
+   
     $conn->close();
 }
 ?>
@@ -195,7 +207,7 @@ $endPos = strpos($latexData, $endTag, $startPos); // Hľadaj endTag od v
   calculator.observe('change', function() {
     var expressions = calculator.getState().expressions.list;
 
-    // Iterate over the expressions and log their values
+    
     expressions.forEach(function(expression) {
       console.log(expression.latex);
     });
