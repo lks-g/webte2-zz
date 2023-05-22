@@ -58,9 +58,7 @@ while ($row = $result1->fetch_assoc()) {
     }
 }
 
-// Vypíš priklady v konzole
-echo 'Priklady: ';
-print_r($examples);
+
 
 ?>
 
@@ -156,33 +154,80 @@ print_r($examples);
     <div class="submit-form">
     <h2>Submit my assignments</h2>
     <form id="final_submit" action="" method="post">
-        <input type="submit" name="final_submit" value="Send" class="generate-button">
+        <input type="submit" name="final_submit" value="send" class="generate-button">
     </form>
+    
 </div>
 
 <script src="../answer_checker/solvingAlg.js"></script>
 
 <script>
-    // Pripojenie udalosti submit na formulár
+    var evaluateResults = []; // Vytvorenie prázdneho poľa evaluateResults
+
     document.getElementById('final_submit').addEventListener('submit', function(event) {
-        event.preventDefault(); 
-        var studentResults = <?php echo json_encode($studentResults); ?>;
-
-        // Výpis pole student_results do konzole
-        console.log('student_results:', studentResults);
-        
-        final_example =  final(`<?php echo isset($examples[0]) ? addslashes($examples[0]) : ''; ?>`);
-        final_studentResult = final(`<?php echo isset($studentResults[0]) ? addslashes($studentResults[0]) : ''; ?>`);
-        
-        console.log("example result: " + final_example);
-        console.log("student result: " + final_studentResult);
-        
-        evaluate(final_example, final_studentResult);
-
-        
-        
-    });
+    event.preventDefault(); 
+    var studentResults = <?php echo json_encode($studentResults); ?>;
+    
+    var final_example = final(`<?php echo isset($examples[1]) ? addslashes($examples[1]) : ''; ?>`);
+    var final_studentResult = final(`<?php echo isset($studentResults[1]) ? addslashes($studentResults[1]) : ''; ?>`);
+    
+    var evaluateResult = evaluate(final_example, final_studentResult);
+    evaluateResults.push(evaluateResult); // Pridanie výsledku do poľa evaluateResults
+    
+    console.log('student_results:', studentResults);
+    console.log("example result: " + final_example);
+    console.log("student result: " + final_studentResult);
+    console.log("evaluate result: " + evaluateResult);
+    console.log("evaluate result pole: " + evaluateResults);
+    console.log("velkost: " + studentResults.length);
+    
+    // Vytvorenie dát pre odoslanie
+    var data = new URLSearchParams();
+    data.append('evaluateResults', evaluateResults);
+    
+    // Vytvorenie požiadavky na server
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'update_results.php');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    // Odoslanie dát na server
+    xhr.send(data);
+});
 </script>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["final_submit"])) {
+  
+    $evaluateResults = $_POST['evaluateResults'];
+    $conn = new mysqli($hostname, $username, $password, $dbname);
+  
+$final_submit = $_POST['final_submit'];
+echo $final_submit;
+
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    
+    // Prepare and bind the SQL statement
+    $stmt = $conn->prepare("UPDATE results SET points = ?");
+    
+    echo $evaluateResults;
+  
+    foreach ($evaluateResults as $points) {
+      if (!$points ){
+        $stmt->bind_param("i", "0");
+        $stmt->execute();
+      }
+     
+    }
+  
+   
+    $stmt->close();
+    $conn->close();
+  }
+?>
+
+
 
     <footer>
         <p><?php echo $lang['student-rights']; ?></p>
