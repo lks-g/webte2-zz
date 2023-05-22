@@ -52,7 +52,7 @@ if ($_SESSION['lang'] == 'sk') {
 <body>
     <div class="navbar">
         <a href="student_assignment.php">Generate Assignments</a>
-        <a href="#">Overview of Assignments</a>
+        <a href="student_overview.php">Overview of Assignments</a>
         <a href="student.php">Student Home Page</a>
 
         <div class="language">
@@ -228,13 +228,17 @@ if (isset($_POST['generate'])) {
         echo "</div>";
 
         if (!empty($generatedTasks)) {
-            echo '<button class="generate-button" onclick="logUserInput()">Send my Answer</button>';
+            echo '<form id="send_id" method="post" action="">';
+            echo '<input type="submit" name="send" value="Send" class="generate-button">';
+            echo '</form>';
         }
     } else {
         echo "No set names found.";
     }
 
-   
+
+    
+
 
     $conn->close();
 }
@@ -268,40 +272,58 @@ if (isset($_POST['generate'])) {
     });
 <?php } ?>
 
-   function logUserInput() {
-  var userInputArray = []; // Array to store user input for all tasks
+
+var form = document.getElementById('send_id');
+    form.addEventListener('submit', logUserInput);
+
+    function logUserInput() {
+  event.preventDefault();
+  var userInputArray = []; // Pole pre uloženie vstupu používateľa pre všetky úlohy
+  var inputUserArray = []; // Pole pre uloženie textových výsledkov
 
   calculators.forEach(function(calculator, index) {
     var expressions = calculator.getState().expressions.list;
     var userInput = expressions.map(function(expression) {
       return expression.latex;
     });
-    console.log('User input for task ' + index + ':', userInput);
 
-    userInputArray.push(userInput); // Add user input for the current task to the array
+    // Konvertovať pole s výsledkami na textový reťazec
+    var userInputText = userInput.join(', '); // Alebo použite inú logiku, ako spájanie hodnôt
+
+    console.log('Vstup používateľa pre úlohu ' + index + ':', userInputText);
+
+    userInputArray.push(userInputText); // Pridať textový reťazec do poľa
+
+    inputUserArray.push(userInputText);
   });
 
-  console.log('User input array:', userInputArray); // Print the array of user inputs to the console
+  console.log('Pole vstupov používateľa:', userInputArray);
+  console.log('Pole textových výsledkov:', inputUserArray);
 
-  // Aktualizácia tabuľky "results"
-  var sessionId = <?php echo $_SESSION['student_id']; ?>;
-  console.log(sessionId);
+  var studentId = '<?php echo $_SESSION["student_id"]; ?>';
 
-  var updateQuery = "UPDATE results SET student_result = ? WHERE session_id = ? AND submitted IS NULL";
-  var values = JSON.stringify(userInputArray); // Convert the array to a JSON string
+  var data = {
+    userInputArray: userInputArray,
+    studentId: studentId,
+  };
 
+  // Odoslať objekt s dátami na PHP skript pomocou AJAX
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "update_results.php", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.open('POST', 'update_results.php', true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      console.log('Results updated successfully.');
-    } else if (xhr.readyState === 4) {
-      console.error('Error updating results:', xhr.responseText);
+      console.log('Dáta úspešne uložené.');
     }
   };
-  xhr.send("updateQuery=" + encodeURIComponent(updateQuery) + "&values=" + encodeURIComponent(values));
-} 
+
+  // Konvertovať objekt na reťazec s formátom JSON
+  var jsonData = JSON.stringify(data);
+  console.log(data);
+  xhr.send('data=' + encodeURIComponent(jsonData));
+
+  return false;
+}
 </script>
     <footer>
         <p>© 2023 - Student Home Page.</p>

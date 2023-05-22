@@ -1,36 +1,35 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-require_once('../config.php'); 
+require_once('../config.php');
 
-if (isset($_POST['updateQuery']) && isset($_POST['values'])) {
-  $updateQuery = $_POST['updateQuery'];
-  $values = $_POST['values'];
+if (isset($_POST['data'])) {
+  // Získať hodnoty z POST dát
+  $data = json_decode($_POST['data'], true);
+  $userInputArray = $data['userInputArray'];
+  $studentId = $data['studentId'];
 
+  // Pripojiť sa k databáze
   $conn = new mysqli($hostname, $username, $password, $dbname);
+
+  // Skontrolovať pripojenie
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
 
-  $stmt = $conn->prepare($updateQuery);
-  $stmt->bind_param("s", $values, $student_id); // Assuming student_id is already defined and available
-
-  if ($stmt->execute()) {
-    echo "Results updated successfully.";
+  // Aktualizovať záznam v databáze
+  $userInputArrayJson = json_encode($userInputArray);
+  $sql = "UPDATE results SET student_result = '$userInputArrayJson' WHERE student_id = '$studentId' AND submitted IS NULL";
+  if ($conn->query($sql) === TRUE) {
+    echo "Pole userInputArray úspešne uložené do databázy.";
+    echo( $userInputArrayJson);
   } else {
-    echo "Error updating results: " . $stmt->error;
+    echo "Chyba pri ukladaní pola userInputArray do databázy: " . $conn->error;
   }
 
-  $stmt->close();
+  // Uzavrieť spojenie s databázou
   $conn->close();
-} else {
-  echo "Invalid request.";
 }
 ?>
-
-
 
 
 
