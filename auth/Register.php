@@ -101,7 +101,7 @@ if ($_POST["radioGroup"] || $_POST["email"] || $_POST['aisId']) {
             <input class="inp" type="text" placeholder="<?php echo $lang['lastName']; ?>" name="surname" id="surname" required>
             <input class="inp" type="text" placeholder="<?php echo $lang['nick']; ?>" name="username" id="username" required>
             <input class="inp" type="text" placeholder="<?php echo $lang['aisID']; ?>" name="aisId" id="aisId" pattern="\d*" required min="6" max="6">
-            <p id="aisId_error" class="inp"><?php echo $lang['aidIDError']; ?></p>
+            <p id="aisId_error" class="inp"><?php echo $lang['aisIDError']; ?></p>
             <p id="aisIdLeangh_error" class="inp"><?php echo $lang['aisIDLengthError']; ?></p>
             <input class="inp" type="email" placeholder="<?php echo $lang['email_placeholder']; ?>" name="email" id="email" required>
             <p id="email_error" class="inp"><?php echo $lang['emailError']; ?></p>

@@ -83,15 +83,22 @@ if (isset($_POST['generate'])) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Retrieve all set_names from assignment_sets table
-    $sql = "SELECT set_name FROM assignments_sets";
+    $sql = "SELECT * FROM results WHERE student_id = {$_SESSION['student_id']} AND submitted IS NULL";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        $setNames = array();
-        while ($row = $result->fetch_assoc()) {
-            $setNames[] = $row['set_name'];
-        }
+        // Student has a pending task, display an alert
+        echo "<script>alert('You cannot generate a new task until you submit the pending task. You will be redirected to overview page'); window.location.href = 'student_overview.php';</script>";
+    }else {
+        // Retrieve all set_names from assignment_sets table
+        $sql = "SELECT set_name FROM assignments_sets";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $setNames = array();
+            while ($row = $result->fetch_assoc()) {
+                $setNames[] = $row['set_name'];
+            }
 
         // Get the student_id (replace this with your own method of obtaining the student_id)
         $studentId = $_SESSION['student_id'];
@@ -239,7 +246,7 @@ if (isset($_POST['generate'])) {
 
     
 
-
+    }
     $conn->close();
 }
 
