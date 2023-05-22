@@ -65,15 +65,9 @@ if ($_SESSION['lang'] == 'sk') {
         <h1>Student Generate Assignment page</h1>
         <h2>Click "Generate" to generate Assignment</h2>
 
-        <form method="post" action="">
+<form method="post" action="">
     <input type="submit" name="generate" value="Generate" class="generate-button">
 </form>
-
-
-
-
-
-
 
 <?php
 if (isset($_POST['generate'])) {
