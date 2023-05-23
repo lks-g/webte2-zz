@@ -104,6 +104,7 @@ body {
     padding: 10px;
     cursor: pointer;
     font-weight: bold;
+    text-align: center;
 }
 
 #main input[type="button"]:hover {

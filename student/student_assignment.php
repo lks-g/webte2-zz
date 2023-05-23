@@ -35,28 +35,28 @@ if ($_SESSION['lang'] == 'sk') {
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
     <script src="https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
-    <title>Student Generate Assignment Page</title>
+    <title><?php echo $lang['generateAssignments']; ?></title>
 </head>
 
 <body>
     <div class="navbar">
-        <a href="student_assignment.php">Generate Assignments</a>
-        <a href="student_overview.php">Overview of Assignments</a>
-        <a href="student.php">Student Home Page</a>
+        <a href="student_assignment.php"><?php echo $lang['generateAssignments']; ?></a>
+        <a href="student_overview.php"><?php echo $lang['assignmentsOverview']; ?></a>
+        <a href="student.php"><?php echo $lang['student-homepage']; ?></a>
         <a class="nav-link" href="../answer_checker/answIndex.php"><?php echo $lang['menu4']; ?></a>
 
         <div class="language">
-            <a href="teacher.php?lang=sk">SK</a>
-            <a href="teacher.php?lang=en">EN</a>
+            <a href="student_assignment.php?lang=sk">SK</a>
+            <a href="student_assignment.php?lang=en">EN</a>
         </div>
     </div>
 
     <div id="main">
-        <h1>Student Generate Assignment page</h1>
-        <h2>Click "Generate" to generate Assignment</h2>
+        <h1><?php echo $lang['generateAssignments']; ?></h1>
+        <h2><?php echo $lang['generate-click']; ?></h2>
 
         <form method="post" action="">
-            <input type="submit" name="generate" value="Generate" class="generate-button">
+            <input type="submit" name="generate" value="<?php echo $lang['generate']; ?>" class="generate-button">
         </form>
 
         <?php
@@ -172,11 +172,11 @@ if ($_SESSION['lang'] == 'sk') {
                                         }
                                     }
                                 } else {
-                                    echo "No tasks found for $setName ($fileName).";
+                                    echo $lang['asgNoSetsError'] . " $setName ($fileName).";
                                 }
                             }
                         } else {
-                            echo "No assignments found for $setName.";
+                            echo $lang['asgNoSetsError'] . $setName;
                         }
                     }
 
@@ -198,12 +198,12 @@ if ($_SESSION['lang'] == 'sk') {
 
                     // Display the generated tasks
                     echo "<div class='task'>";
-                    echo "<h3>Tasks for Student ID: $studentId</h3>";
-                    echo "<h2>Enter your answers into editors and then send all the answer on bottom of the page</h3>";
+                    echo "<h3>" . $lang['tasksForId'] . $studentId . "</h3>";
+                    echo "<h2>" . $lang['inputTxt'] . "</h3>";
                     echo "<hr>";
                     foreach ($generatedTasks as $index => $task) {
                         echo "<div class='task-container'>";
-                        echo "<h4>Set Name: " . $setNames[$index] . "</h4>";
+                        echo "<h4>" . $lang['tName'] . " " . $setNames[$index] . "</h4>";
                         echo "<div class='task-content'>";
                         echo $task;
                         echo "</div>";
@@ -219,19 +219,19 @@ if ($_SESSION['lang'] == 'sk') {
 
                     if (!empty($generatedTasks)) {
                         echo '<form id="send_id" method="post" action="">';
-                        echo '<input type="submit" name="send" value="Send" class="generate-button">';
+                        echo '<input type="submit" name="send" value="" class="generate-button">';
                         echo '</form>';
                     }
                 } else {
-                    echo "No set names found.";
+                    echo $lang['noSetnames'];
                 }
             }
             $conn->close();
         }
 
         ?>
-
     </div>
+
     <script>
         var calculators = [];
 
@@ -315,8 +315,9 @@ if ($_SESSION['lang'] == 'sk') {
             return false;
         }
     </script>
+
     <footer>
-        <p>© 2023 - Student Home Page.</p>
+        <p><?php echo $langp['student-rights'] ?></p>
     </footer>
 </body>
 

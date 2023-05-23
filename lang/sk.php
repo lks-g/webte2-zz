@@ -113,6 +113,17 @@ $lang = array(
     'noTaskFound' => 'Nenašiel sa žiadny príklad v LaTeX súbore.',
     'noAsgFound' => 'Nenašiel sa žiadny test v databáze.',
     'logOut' => 'Odhlásiť sa',
+    'active' => 'Tu môžete You can see your active assignments:',
+    'tID' => 'ID',
+    'tName' => 'Názov testu',
+    'tMaxPoints' => 'Maximálny počet bodov',
+    'tPoints' => 'Počet získaných bodov',
+    'tSubmitted' => 'Odoslané',
+    'tResult' => 'Vaša odpoveď',
+    'submitAsg' => 'Odoslať moje odpovede',
+    'tasksForId' => 'Tasks for Student ID: ',
+    'inputTxt' => 'Zadajte svoje odpovede do editorov a potom odošlite všetky odpovede v dolnej časti stránky.',
+    'noSetnames' => 'Nenašiel sa žiadny test v databáze.',
 
     //Asnwers overview
     'testingTitle' => 'Prehľad príkladov',

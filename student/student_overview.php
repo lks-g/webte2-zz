@@ -1,6 +1,7 @@
 <?php
 
 require_once('../config.php');
+
 session_start();
 
 if (!isset($_SESSION['name']) && $_SESSION["role"] != "student") {
@@ -82,22 +83,22 @@ while ($row = $result1->fetch_assoc()) {
         <a class="nav-link" href="../answer_checker/answIndex.php"><?php echo $lang['menu4']; ?></a>
 
         <div class="language">
-            <a href="student.php?lang=sk">SK</a>
-            <a href="student.php?lang=en">EN</a>
+            <a href="student_overview.php?lang=sk">SK</a>
+            <a href="student_overview.php?lang=en">EN</a>
         </div>
     </div>
     <div class="text_container">
-    <h1>You can see your active assignments:</h1>
+    <h1><?php echo $lang['active']; ?></h1>
     </div>
     <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Test name</th>
-            <th>Full possible Points</th>
-            <th>Your Points</th>
-            <th>Submitted</th>
-            <th>Your Answer</th>
+            <th><?php echo $lang['tID']; ?></th>
+            <th><?php echo $lang['tName']; ?></th>
+            <th><?php echo $lang['tMaxPoints']; ?></th>
+            <th><?php echo $lang['tPoints']; ?></th>
+            <th><?php echo $lang['tSubmitted']; ?></th>
+            <th><?php echo $lang['sResult']; ?></th>
         </tr>
     </thead>
     <tbody>
@@ -155,10 +156,10 @@ while ($row = $result1->fetch_assoc()) {
 </table>
 
     <div class="submit-form">
-    <h2>Submit my assignments</h2>
+    <h2><?php echo $lang['submitAsg'];?></h2>
     <form id="final_submit" action="" method="post">
-        <input id="pekne_id" type="hidden" name="test" value="send">
-        <input type="submit" name="final_submit" value="send" class="generate-button">
+        <input id="pekne_id" type="hidden" name="test" value="<?php echo $lang['sendAnswer']; ?>">
+        <input type="submit" name="final_submit" value="<?php echo $lang['sendAnswer']; ?>" class="generate-button">
     </form>
     
 </div>

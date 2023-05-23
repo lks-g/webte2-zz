@@ -18,7 +18,6 @@ if (isset($_POST['data'])) {
     die("Connection failed: " . $conn->connect_error);
   }
 
- 
   $userInputArrayJson = json_encode($userInputArray);
   $sql = "UPDATE results SET student_result = '$userInputArrayJson' WHERE student_id = '$studentId' AND submitted IS NULL";
   if ($conn->query($sql) === TRUE) {
@@ -28,7 +27,6 @@ if (isset($_POST['data'])) {
     echo "Chyba pri ukladaní pola userInputArray do databázy: " . $conn->error;
   }
 
-  
   $conn->close();
 }
 

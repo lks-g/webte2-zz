@@ -45,7 +45,7 @@ if ($_SESSION['lang'] == 'sk') {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../auth/Login.php"><?php echo $lang['backToHomepage']; ?></a>
+                    <a class="nav-link" href="../student/student.php"><?php echo $lang['backToHomepage']; ?></a>
                 </li>
             </ul>
             <div class="language">
@@ -82,9 +82,9 @@ if ($_SESSION['lang'] == 'sk') {
             var answer = evaluate(tmpRiesenie, tmpOdpoved)
             odozva.innerHTML = '';
             if (answer === false) {
-                odozva.innerHTML = <?php echo $lang['incorrect']; ?>;
+                odozva.innerHTML = "<?php echo $lang['incorrect']; ?>";
             } else {
-                odozva.innerHTML = <?php echo $lang['correct']; ?>;
+                odozva.innerHTML = "<?php echo $lang['correct']; ?>";
             }
         })
     </script>
