@@ -1,7 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 require_once('../config.php');
 session_start();
 
@@ -90,66 +88,73 @@ while ($row = $result1->fetch_assoc()) {
             <a href="student.php?lang=en">EN</a>
         </div>
     </div>
-
+    <div class="text_container">
+    <h1>You can see your active assignments:</h1>
+    </div>
     <table class="table">
-        <thead>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Test name</th>
+            <th>Full possible Points</th>
+            <th>Your Points</th>
+            <th>Submitted</th>
+            <th>Your Answer</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php while ($row = $result->fetch_assoc()) : ?>
+        <?php
+        $setNames = explode(', ', $row['set_name']);
+        $studentResultString = $row['student_result'];
+        
+        if (!empty($studentResultString)) {
+            $studentResultString = str_replace('\\', '\\\\', $studentResultString); // Escape backslash character
+            $studentResults = json_decode($studentResultString, true, JSON_UNESCAPED_SLASHES);
+
+            if ($studentResults === null) {
+                echo 'Error decoding JSON: ' . json_last_error_msg();
+                echo 'JSON Data: ' . htmlspecialchars($studentResultString);
+                continue; // Skip this iteration and move to the next row
+            }
+        } else {
+            $studentResults = [];
+        }
+
+        $points = explode(',', $row['points']); // Rozdelenie hodnôt stĺpca "points"
+
+        $rowCount = max(count($setNames), count($studentResults), count($points));
+
+        for ($i = 0; $i < $rowCount; $i++) {
+            ?>
             <tr>
-                <th>ID</th>
-                <th>Test name</th>
-                <th>Full possible Points</th>
-                <th>Your Points</th>
-                <th>Submitted</th>
-                <th>Your Answer</th>
+                <td><?php echo $row['student_id']; ?></td>
+                <td><?php echo isset($setNames[$i]) ? $setNames[$i] : ''; ?></td>
+                <td><?php echo isset($setNames[$i]) ? $pointsMap[$setNames[$i]] : ''; ?></td>
+                <td><?php echo isset($points[$i]) ? $points[$i] : ''; ?></td>
+                <td><?php echo $row['submitted']; ?></td>
+                <td>
+                    <?php
+                    if (isset($studentResults[$i])) {
+                        $latexExpression = $studentResults[$i];
+                        $modifiedExpression = str_replace('\\', '\\\\', $latexExpression);
+                        $modifiedExpression = str_replace('frac', '\\dfrac', $modifiedExpression);
+                        $modifiedExpression = str_replace('sqrt', '\\sqrt', $modifiedExpression);
+                        $mathjaxExpression = '\(' . $modifiedExpression . '\)';
+
+                        echo '<script>';
+                        echo 'console.log("MathJax Expression: ' . $mathjaxExpression . '");';
+                        echo 'console.log("LaTeX Expression: ' . $modifiedExpression . '");';
+                        echo '</script>';
+                        echo '<span class="mathjax">' . $mathjaxExpression . '</span>';
+                    }
+                    ?>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <?php while ($row = $result->fetch_assoc()) : ?>
-                <?php
-                $setNames = explode(', ', $row['set_name']);
-                $studentResultString = $row['student_result'];
-                $studentResultString = str_replace('\\', '\\\\', $studentResultString); // Escape backslash character
-                $studentResults = json_decode($studentResultString, true, JSON_UNESCAPED_SLASHES);
-
-                if ($studentResults === null) {
-                    echo 'Error decoding JSON: ' . json_last_error_msg();
-                    echo 'JSON Data: ' . htmlspecialchars($row['student_result']);
-                    continue; // Skip this iteration and move to the next row
-                }
-
-                $rowCount = max(count($setNames), count($studentResults));
-
-                for ($i = 0; $i < $rowCount; $i++) {
-
-                ?>
-                    <tr>
-                        <td><?php echo $row['student_id']; ?></td>
-                        <td><?php echo isset($setNames[$i]) ? $setNames[$i] : ''; ?></td>
-                        <td><?php echo isset($setNames[$i]) ? $pointsMap[$setNames[$i]] : ''; ?></td>
-                        <td><?php echo $row['points']; ?></td>
-                        <td><?php echo $row['submitted']; ?></td>
-                        <td>
-                            <?php
-                            if (isset($studentResults[$i])) {
-                                // Wrap the LaTeX expression in a MathJax span with appropriate delimiters
-                                $latexExpression = $studentResults[$i];
-                                $modifiedExpression = str_replace('\\', '\\\\', $latexExpression);
-                                $modifiedExpression = str_replace('frac', '\\dfrac', $modifiedExpression); // Fix fractions with explicit size
-                                $modifiedExpression = str_replace('sqrt', '\\sqrt', $modifiedExpression); // Replace sqrt with \\sqrt
-                                $mathjaxExpression = '\(' . $modifiedExpression . '\)';
-
-                                echo '<script>';
-                                echo 'console.log("MathJax Expression: ' . $mathjaxExpression . '");';
-                                echo 'console.log("LaTeX Expression: ' . $modifiedExpression . '");';
-                                echo '</script>';
-                                echo '<span class="mathjax">' . $mathjaxExpression . '</span>';
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                <?php } ?>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
+        <?php } ?>
+    <?php endwhile; ?>
+</tbody>
+</table>
 
     <div class="submit-form">
     <h2>Submit my assignments</h2>
@@ -204,15 +209,49 @@ get_students();
     
     
     console.log("example_mid:" +examples[0]);
+
     console.log("parsed_Data_mid:" +parsed_data[0]);
+    
+
     
     
     for(var i = 0; i < studentResults.length; i++){
         
-    var final_example = final(examples[0]);
-    var final_studentResult = final(parsed_data[0]);
+       
+        if (parsed_data[i].includes("frac")) {
+         parsed_data[i] = parsed_data[i].replace(/frac/g, "\\dfrac");
+       
+    }
 
+        if (parsed_data[i].includes("rac")) {
+        parsed_data[i] = parsed_data[i].replace(/rac/g, "\\frac");
+       }
+
+       if (parsed_data[i].includes("qrt")) {
+        parsed_data[i] = parsed_data[i].replace(/qrt/g, "\\sqrt");
+       
+    }
     
+    /* if (parsed_data[i].includes("eft")) {
+        parsed_data[i] = parsed_data[i].replace(/eft/g, "\\left");
+       
+    }
+    if (parsed_data[i].includes("ight")) {
+        parsed_data[i] = parsed_data[i].replace(/ight/g, "\\right");
+       
+    } */
+    if (parsed_data[i].includes("ta")) {
+        parsed_data[i] = parsed_data[i].replace(/ta/g, "\\eta");
+       
+    }
+    console.log("parsed_Data_midTESTTT:" +parsed_data[i]);
+    var final_example = final(examples[i]);
+    var final_studentResult = final(parsed_data[i]);
+    
+    
+
+console.log("FINAL STUDENT TEST?::" + final_studentResult[i]);
+console.log("parsed_Data_midTESTTT22222:" +parsed_data[i]);
     var evaluateResult = evaluate(final_example, final_studentResult);
     evaluateResults.push(evaluateResult); 
     pekne_id_var.value = evaluateResults;
@@ -239,40 +278,98 @@ get_students();
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["test"])) {
-    echo "dosiel som:    ".$_POST["test"];
+    
     $evaluateResults = $_POST['test'];
-
+    $student_id = $_SESSION['student_id']; 
     $conn = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   
-    // Prepare and bind the SQL statement
-    $stmt = $conn->prepare("UPDATE results SET points = :points;");
+    // Prepare the SQL statement outside the loop
+    $stmt = $conn->prepare("UPDATE results SET points = :points WHERE student_id = :student_id;");
     
-    $points1 = 3;
-    $points = 0;
-    //$arrayLength = count($evaluateResults);
+    $pointsArray = array();
     
-   echo"evaluateResults:    ". $evaluateResults;
+    $resultsArray = explode(",", $evaluateResults); 
+    $arrayLength = count($resultsArray);
     
-    for ($i = 0; $i < 2; $i++) {
-        $tmp = $evaluateResults;
-        echo"TMP :   ". $tmp;
-        if ($tmp == "false") {
-            $stmt->bindParam(":points", $points);
-            $stmt->execute();
-        }
-        else{
-        $stmt->bindParam(":points", $points1);
-        $stmt->execute();
+  
+
+
+    $stmtNames = $conn->prepare("SELECT set_name FROM results WHERE student_id = :student_id");
+    $stmtNames->bindParam(":student_id", $student_id);
+    $stmtNames->execute();
+    $resultSet = $stmtNames->fetchAll(PDO::FETCH_COLUMN);
+    
+    
+    $nameArray = array();
+    foreach ($resultSet as $setName) {
+        $setNameValues = explode(",", $setName);
+        foreach ($setNameValues as $value) {
+            $nameArray[] = trim($value);
         }
     }
+    
+    
+  
+
+    
+    for ($i = 0; $i < $arrayLength; $i++) {
+        $tmp = trim($resultsArray[$i]);
+    
+        if ($tmp == "false") {
+            $pointsArray[] = 0;
+        } else {
+            $setName = $nameArray[$i]; // Získanie hodnoty z $nameArray pre aktuálny index $i
+            
+            $stmtPoints = $conn->prepare("SELECT points FROM assignments_sets WHERE set_name = :set_name");
+            $stmtPoints->bindParam(":set_name", $setName);
+            $stmtPoints->execute();
+            $row = $stmtPoints->fetch(PDO::FETCH_ASSOC);
+            
+            if ($row) {
+                $points = $row['points'];
+                $pointsArray[] = $points;
+            } else {
+                // Ak sa nenájde zhoda v databáze, pridajte hodnotu 0
+                $pointsArray[] = 0;
+            }
+        }
+    }
+    
+    
+    
+    
+    $pointsString = implode(",", $pointsArray);
+    $stmt->bindParam(":points", $pointsString);
+    $stmt->bindParam(":student_id", $student_id);
+    $stmt->execute();
+    
+    
+    $submittedValue = "true"; // Nastaviť hodnotu "true" pre stĺpec "submitted"
+
+// Aktualizovať hodnotu stĺpca "submitted"
+$stmtSubmitted = $conn->prepare("UPDATE results SET submitted = :submitted WHERE student_id = :student_id");
+$stmtSubmitted->bindParam(":submitted", $submittedValue);
+$stmtSubmitted->bindParam(":student_id", $student_id);
+$stmtSubmitted->execute();
+
 }
 ?>
 
 
 
-
-
+<!-- for ($i = 0; $i < $arrayLength; $i++) {
+        $tmp = trim($resultsArray[$i]); // Trim whitespace from each element
+        echo "TMP :   ".$tmp;
+        if ($tmp == "false") {
+            $stmt->bindParam(":points", $points);
+            $stmt->execute();
+        } else {
+            $stmt->bindParam(":points", $points1);
+            $stmt->execute();
+        }
+    }
+ -->
 
 
 
