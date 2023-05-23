@@ -113,4 +113,13 @@ $lang = array(
     'noTaskFound' => 'Nenašiel sa žiadny príklad v LaTeX súbore.',
     'noAsgFound' => 'Nenašiel sa žiadny test v databáze.',
     'logOut' => 'Odhlásiť sa',
+
+    //Asnwers overview
+    'testingTitle' => 'Prehľad príkladov',
+    'resp' => 'Odozva',
+    'answer' => 'Odpoveď',
+    'compare' => 'Porovnať',
+    'backToHomepage' => 'Späť na domovskú stránku',
+    'correct' => 'Správne',
+    'incorrect' => 'Nesprávne',
 );

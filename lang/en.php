@@ -113,4 +113,13 @@ $lang = array(
     'noTaskFound' => 'No task found in the LaTeX file.',
     'noAsgFound' => 'No assignment found.',
     'logOut' => 'Logout',
+
+    //Answer overview
+    'testingTitle' => 'Testing',
+    'resp' => 'Response',
+    'answer' => 'Answer',
+    'compare' => 'Compare',
+    'backToHomepage' => 'Back to Homepage',
+    'correct' => 'Correct',
+    'incorrect' => 'Incorrect',
 );
