@@ -154,6 +154,7 @@ while ($row = $result1->fetch_assoc()) {
     <div class="submit-form">
     <h2>Submit my assignments</h2>
     <form id="final_submit" action="" method="post">
+        <input id="pekne_id" type="hidden" name="test" value="send">
         <input type="submit" name="final_submit" value="send" class="generate-button">
     </form>
     
@@ -162,17 +163,62 @@ while ($row = $result1->fetch_assoc()) {
 <script src="../answer_checker/solvingAlg.js"></script>
 
 <script>
-    var evaluateResults = []; // Vytvorenie prázdneho poľa evaluateResults
+
+let examples;
+var parsed_data;
+
+async function get_examples() {
+    await fetch(`examples.php`)
+        .then(response => response.json()) // Update this line
+        .then(data => {
+            examples = data;
+            console.log("fetch_data: " +data);
+           
+        });
+}
+
+async function get_students() {
+    await fetch(`studentResults.php`)
+        .then(response => response.json()) // Update this line
+        .then(data => {
+        console.log(data[0].student_result);
+        var student_data = data[0].student_result;
+         parsed_data = JSON.parse(student_data);
+        console.log(parsed_data);
+        });
+}
+
+
+get_examples();
+get_students();
+
+  var evaluateResults = []; // Vytvorenie prázdneho poľa evaluateResults
+    var pekne_id_var  = document.getElementById("pekne_id");
+    console.log("examples test:  " + examples);
+
 
     document.getElementById('final_submit').addEventListener('submit', function(event) {
-    event.preventDefault(); 
     var studentResults = <?php echo json_encode($studentResults); ?>;
+    var final_example;
+    var final_studentResult;
     
-    var final_example = final(`<?php echo isset($examples[1]) ? addslashes($examples[1]) : ''; ?>`);
-    var final_studentResult = final(`<?php echo isset($studentResults[1]) ? addslashes($studentResults[1]) : ''; ?>`);
+    
+    console.log("example_mid:" +examples[0]);
+    console.log("parsed_Data_mid:" +parsed_data[0]);
+    
+    
+    for(var i = 0; i < studentResults.length; i++){
+        
+    var final_example = final(examples[0]);
+    var final_studentResult = final(parsed_data[0]);
+
     
     var evaluateResult = evaluate(final_example, final_studentResult);
-    evaluateResults.push(evaluateResult); // Pridanie výsledku do poľa evaluateResults
+    evaluateResults.push(evaluateResult); 
+    pekne_id_var.value = evaluateResults;
+}
+    
+    
     
     console.log('student_results:', studentResults);
     console.log("example result: " + final_example);
@@ -181,51 +227,53 @@ while ($row = $result1->fetch_assoc()) {
     console.log("evaluate result pole: " + evaluateResults);
     console.log("velkost: " + studentResults.length);
     
-    // Vytvorenie dát pre odoslanie
-    var data = new URLSearchParams();
-    data.append('evaluateResults', evaluateResults);
-    
-    // Vytvorenie požiadavky na server
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'update_results.php');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-    // Odoslanie dát na server
-    xhr.send(data);
+
+   
+
 });
+
 </script>
 
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["final_submit"])) {
-  
-    $evaluateResults = $_POST['evaluateResults'];
-    $conn = new mysqli($hostname, $username, $password, $dbname);
-  
-$final_submit = $_POST['final_submit'];
-echo $final_submit;
 
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-    
+
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["test"])) {
+    echo "dosiel som:    ".$_POST["test"];
+    $evaluateResults = $_POST['test'];
+
+    $conn = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  
     // Prepare and bind the SQL statement
-    $stmt = $conn->prepare("UPDATE results SET points = ?");
+    $stmt = $conn->prepare("UPDATE results SET points = :points;");
     
-    echo $evaluateResults;
-  
-    foreach ($evaluateResults as $points) {
-      if (!$points ){
-        $stmt->bind_param("i", "0");
+    $points1 = 3;
+    $points = 0;
+    //$arrayLength = count($evaluateResults);
+    
+   echo"evaluateResults:    ". $evaluateResults;
+    
+    for ($i = 0; $i < 2; $i++) {
+        $tmp = $evaluateResults;
+        echo"TMP :   ". $tmp;
+        if ($tmp == "false") {
+            $stmt->bindParam(":points", $points);
+            $stmt->execute();
+        }
+        else{
+        $stmt->bindParam(":points", $points1);
         $stmt->execute();
-      }
-     
+        }
     }
-  
-   
-    $stmt->close();
-    $conn->close();
-  }
+}
 ?>
+
+
+
+
+
+
 
 
 
