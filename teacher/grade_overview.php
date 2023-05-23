@@ -1,7 +1,12 @@
 <?php
+
 session_start();
 
 require_once('../config.php');
+
+if (!isset($_SESSION['name']) &&  $_SESSION["role"] != "teacher") {
+    header("Location: ../index.php");
+}
 
 if (isset($_GET['lang'])) {
     $_SESSION['lang'] = $_GET['lang'];
@@ -146,7 +151,6 @@ if (isset($_GET['export'])) {
         <div>
             <a href="grade_overview.php?export=1" class="btn btn-primary"><?php echo $lang['exportCSV']; ?></a>
         </div>
-
     </div>
 
     <div id="student-details" style="display: none;">

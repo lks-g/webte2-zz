@@ -7,6 +7,7 @@ $lang = array(
     'title4' => 'Grade Overview',
     'title5' => 'Student Profile',
     'title6' => 'Tutorial',
+    'title7' => 'Register',
     
     // Login page
     'login' => 'Login',
@@ -20,14 +21,30 @@ $lang = array(
     'register-text' => 'Register',
     'noAccount' => 'Don\'t have an account?',
     'register' => 'Register now',
+    'logout' => 'Logout',
+
+    // Register page
+    'register-title' => 'Register',
+    'nick' => 'Nickname',
+    'aisID' => 'AIS ID',
+    'aisIDError' => 'Ais ID is already taken or is invalid.',
+    'aisIDLengthError' => 'Ais ID must be 6 characters long.',
+    'emailError' => 'Email is already taken or is invalid.',
+    'retryPassword' => 'Repeat password',
+    'passError' => 'Passwords do not match.',
+    'student' => 'Student',
+    'teacher' => 'Teacher',
+    'haveAcc' => 'Already have an account?',
+    'loginNow' => 'Login now',
 
      // Teacher home page
     'header' => 'Teacher Home Page',
     'menu1' => 'Assignment Submission',
     'menu2' => 'Student Grade Overview',
     'menu3' => 'User Manual',
-    'welcome' => 'Welcome to the home page',
+    'welcome' => 'Welcome to the home page ',
     'rights' => '© 2023 - Teacher Home Page.',
+    'session-info' => 'You are logged in as ',
 
     // Generator
     'file-input' => 'Select LaTeX file:',
@@ -77,4 +94,23 @@ $lang = array(
     'sSite' => 'Student\'s site',
     'student-tuto' => '',
     'problemsTuto' => 'How to solve problems',
+
+    // Student home page
+    'student-title' => 'Student Home Page',
+    'student-asgTitle' => 'Assignment Page',
+    'generateAssignments' => 'Generate assignment',
+    'assignmentsOverview' => 'Assignments overview',
+    'student-homepage' => 'Student\'s Home Page',
+    'student-welcome' => 'Welcome to the home page ',
+    'loggedIn' => 'You are logged in as ',
+    'student-role' => 'under the role of a ',
+    'student-rights' => '© 2023 - Student Home Page.',
+    'generate-title' => 'Student Generate Assignment page',
+    'generate-click' => 'Click on the button below to generate a new assignment.',
+    'taskFrom' => 'Task from',
+    'sendAnswer' => 'Send answer',
+    'randomTask' => 'Random task from $setName and $fileName',
+    'noTaskFound' => 'No task found in the LaTeX file.',
+    'noAsgFound' => 'No assignment found.',
+    'logOut' => 'Logout',
 );

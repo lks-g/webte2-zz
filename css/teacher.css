@@ -169,7 +169,8 @@ iframe {
     border-radius: 5px;
 }
 
-.data-table, #profile-table  {
+.data-table,
+#profile-table {
     text-align: center;
 }
 
@@ -283,6 +284,30 @@ iframe {
     background-color: #531111;
 }
 
+.tutorialBtn {
+    margin: 0 auto;
+    margin-top: 8%;
+    text-align: center;
+    background-color: #0069d9;
+    height: auto;
+    width: 20%;
+    border: none;
+    border-radius: 4px;
+    padding: 1%;
+    transition: 300ms ease-in-out background-color, 300ms ease-in-out width, 300ms ease-in-out font-size;
+}
+
+.tutorialBtn a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.tutorialBtn:hover {
+    background-color: #0051a8;
+    width: 25%;
+    font-size: 18px;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
     #main {
@@ -314,7 +339,8 @@ iframe {
         font-size: 15px;
     }
 
-    #main, #main-frame {
+    #main,
+    #main-frame {
         width: 100%;
     }
 

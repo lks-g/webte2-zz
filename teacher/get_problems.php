@@ -4,6 +4,10 @@ require_once('../config.php');
 
 session_start();
 
+if (!isset($_SESSION['name']) &&  $_SESSION["role"] != "teacher") {
+    header("Location: ../index.php");
+}
+
 try {
     $db = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -226,6 +226,9 @@ function addMultiply(index){
     console.log("After replacements: " + result);
     return result;
 }
+
+
+
 //TODO tuto funkciu aplikuj na odpoved a aj na vysledok
 function final(index){
     try {
