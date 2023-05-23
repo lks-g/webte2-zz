@@ -219,7 +219,7 @@ if ($_SESSION['lang'] == 'sk') {
 
                     if (!empty($generatedTasks)) {
                         echo '<form id="send_id" method="post" action="">';
-                        echo '<input type="submit" name="send" value="" class="generate-button">';
+                        echo '<input type="submit" name="send" value="' . $lang['sendAnswer'] . '" class="generate-button">';
                         echo '</form>';
                     }
                 } else {
