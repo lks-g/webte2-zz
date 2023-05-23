@@ -55,6 +55,9 @@ if ($_SESSION['lang'] == 'sk') {
                 <li class="nav-item">
                     <a class="nav-link" href="../tutorial/tutorial.php"><?php echo $lang['menu3']; ?></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../answer_checker/answIndex.php"><?php echo $lang['menu4']; ?></a>
+                </li>
             </ul>
             <div class="language">
                 <a class="nav-link" href="generator.php?lang=sk">SK</a>

@@ -122,4 +122,5 @@ $lang = array(
     'backToHomepage' => 'Back to Homepage',
     'correct' => 'Correct',
     'incorrect' => 'Incorrect',
+    'menu4' => 'Answer Checker',
 );

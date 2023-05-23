@@ -112,6 +112,9 @@ if (isset($_GET['export'])) {
                 <li class="nav-item">
                     <a class="nav-link" href="../tutorial/tutorial.php"><?php echo $lang['menu3']; ?></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../answer_checker/answIndex.php"><?php echo $lang['menu4']; ?></a>
+                </li>
             </ul>
             <div class="language">
                 <a class="nav-link" href="grade_overview.php?lang=sk">SK</a>

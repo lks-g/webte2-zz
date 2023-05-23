@@ -122,4 +122,5 @@ $lang = array(
     'backToHomepage' => 'Späť na domovskú stránku',
     'correct' => 'Správne',
     'incorrect' => 'Nesprávne',
+    'menu4' => 'Testovanie príkladov',
 );

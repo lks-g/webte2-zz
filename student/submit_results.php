@@ -28,7 +28,6 @@ if (isset($_POST['evaluateResults'])) {
    
   }
 
- 
   $stmt->close();
   $conn->close();
 }

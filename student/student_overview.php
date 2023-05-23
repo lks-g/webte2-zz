@@ -56,8 +56,6 @@ while ($row = $result1->fetch_assoc()) {
     }
 }
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +71,6 @@ while ($row = $result1->fetch_assoc()) {
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 
-
     <title><?php echo $lang['student-title']; ?></title>
 </head>
 
@@ -82,6 +79,7 @@ while ($row = $result1->fetch_assoc()) {
         <a href="student_assignment.php"><?php echo $lang['generateAssignments']; ?></a>
         <a href="student_overview.php"><?php echo $lang['assignmentsOverview']; ?></a>
         <a href="student.php"><?php echo $lang['student-homepage']; ?></a>
+        <a class="nav-link" href="../answer_checker/answIndex.php"><?php echo $lang['menu4']; ?></a>
 
         <div class="language">
             <a href="student.php?lang=sk">SK</a>
