@@ -1,7 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 
 session_start();
 
@@ -277,7 +275,7 @@ if (isset($_POST['generate'])) {
 var form = document.getElementById('send_id');
     form.addEventListener('submit', logUserInput);
 
-    function logUserInput() {
+function logUserInput() {
   event.preventDefault();
   var userInputArray = []; // Pole pre uloženie vstupu používateľa pre všetky úlohy
   var inputUserArray = []; // Pole pre uloženie textových výsledkov
@@ -315,12 +313,18 @@ var form = document.getElementById('send_id');
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       console.log('Dáta úspešne uložené.');
+      
+            alert('Data send sucesfully, now u will be transfered to overview');
+            window.location.href = 'student_overview.php';
     }
   };
 
   // Konvertovať objekt na reťazec s formátom JSON
   var jsonData = JSON.stringify(data);
-  console.log(data);
+  console.log("data:" +data);
+  
+  console.log("jsonData" + jsonData);
+
   xhr.send('data=' + encodeURIComponent(jsonData));
 
   return false;

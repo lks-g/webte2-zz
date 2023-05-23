@@ -127,6 +127,8 @@ function replaceBraces(index){
     var result = index;
     result = result.replace(/\\left\[/g, '(');
     result = result.replace(/\\right\]/g, ')');
+    result = result.replace(/\\left\(/g, '(');
+    result = result.replace(/\\right\)/g, ')');
     console.log("Original: " + index);
     console.log("After replacements: " + result);
     return result;
